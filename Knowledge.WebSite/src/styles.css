@@ -13,6 +13,8 @@
   -moz-border-radius: inherit;
   border-radius: 3px;
 }
+
 body{
-  background-color: rgb(240,243,247);
+  background-color: rgb(240,243,247) !important;
+  /*background-color: red;*/
 }

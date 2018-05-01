@@ -1,3 +1,30 @@
-<p>
-  add works!
-</p>
+<div class="row d-flex ">
+  <div class="ml-3 mr-3 div-shadow div-rounded add-box col-xl-8 mx-auto text-center p-4 col-md-11">
+    <form>
+      <mat-form-field>
+        <input matInput name="title" ([ngModel])="post.title" placeholder="Tytuł" required minlength="5"
+               [(ngModel)]="model.title">
+      </mat-form-field>
+      <mat-form-field>
+        <textarea matInput name="description" ([ngModel])="post.title" placeholder="Opis" required minlength="30"
+                  rows="6" [(ngModel)]="model.description"></textarea>
+      </mat-form-field>
+      <!--todo files formats-->
+      <td-file-upload name="file" #singleFileUpload [(ngModel)]="files" accept=".pdf, .jpg, .png, .doc, .txt, .docx"
+                      (select)="selectEvent($event)" (upload)="uploadEvent($event)" (cancel)="cancelEvent()"
+                      [disabled]="disabled" required>
+        <mat-icon>file_upload</mat-icon>
+        <span>{{ singleFileUpload.value?.name }}</span>
+        <ng-template td-file-input-label>
+          <mat-icon>attach_file</mat-icon>
+          <span>
+      Wybierz plik...
+      <span [hidden]="!singleFileUpload?.required">*</span>
+        </span>
+        </ng-template>
+      </td-file-upload>
+      <br>
+      <button class="float-md-right" mat-raised-button type="submit">Wyślij</button>
+    </form>
+  </div>
+</div>
