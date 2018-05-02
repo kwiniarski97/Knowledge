@@ -6,15 +6,24 @@
   box-shadow: 0 4px 6px hsla(0, 0%, 0%, 0.2);
 }
 
+.primary-background {
+  background-color: rgb(63, 81, 181);
+}
+
+.toolbar {
+  color: white;
+  margin-bottom: 10px;
+  font-weight: lighter;
+}
 
 
-.div-rounded{
+.div-rounded {
   -webkit-border-radius: inherit;
   -moz-border-radius: inherit;
   border-radius: 3px;
 }
 
-body{
-  background-color: rgb(240,243,247) !important;
+body {
+  background-color: rgb(240, 243, 247) !important;
   /*background-color: red;*/
 }

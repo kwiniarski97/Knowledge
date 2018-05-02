@@ -1,28 +1,45 @@
+<mat-toolbar class="primary-background toolbar">
+  <span>Dodawanie nowego materiału</span>
+</mat-toolbar>
 <div class="row d-flex ">
-  <div class="ml-3 mr-3 div-shadow div-rounded add-box col-xl-8 mx-auto text-center p-4 col-md-11">
-    <form>
+  <div class="ml-3 mr-3 div-shadow div-rounded add-box col-xl-7 mx-auto text-center p-4 col-md-11">
+    <form (submit)="send()">
+
       <mat-form-field>
-        <input matInput name="title" ([ngModel])="post.title" placeholder="Tytuł" required minlength="5"
+        <input #title matInput name="title" ([ngModel])="post.title" placeholder="Tytuł" required minlength="5"
                [(ngModel)]="model.title">
       </mat-form-field>
+
       <mat-form-field>
-        <textarea matInput name="description" ([ngModel])="post.title" placeholder="Opis" required minlength="30"
-                  rows="6" [(ngModel)]="model.description"></textarea>
+        <mat-select #type placeholder="Rodzaj" required>
+          <mat-option *ngFor="let typ of types | enumToArray" [value]="typ">{{types[typ]}}</mat-option>
+        </mat-select>
       </mat-form-field>
-      <!--todo files formats-->
-      <td-file-upload name="file" #singleFileUpload [(ngModel)]="files" accept=".pdf, .jpg, .png, .doc, .txt, .docx"
-                      (select)="selectEvent($event)" (upload)="uploadEvent($event)" (cancel)="cancelEvent()"
-                      [disabled]="disabled" required>
+
+      <mat-form-field hintLabel="Minimum 30 znaków.">
+        <textarea #description matInput name="description" ([ngModel])="post.title" placeholder="Opis" required
+                  minlength="30"
+                  rows="12" [(ngModel)]="model.description"></textarea>
+        <mat-hint align="end">{{description.value?.length || 0}}</mat-hint>
+      </mat-form-field>
+
+      <td-file-upload #fileMultipleUpload (select)="selectMultipleEvent($event)" (upload)="uploadMultipleEvent($event)"
+                      (cancel)="cancelMultipleEvent()" accept=".pdf, .jpg, .png, .doc, .txt, .docx"
+                      defaultColor="primary" activeColor="warn" cancelColor="primary" multiple
+                      [disabled]="disabled" style="margin: 100px">
         <mat-icon>file_upload</mat-icon>
-        <span>{{ singleFileUpload.value?.name }}</span>
+        <span>
+    {{ fileMultipleUpload.value?.name || fileMultipleUpload.value?.length }} <span
+          *ngIf="fileMultipleUpload.value?.length">wybrane pliki</span>
+  </span>
         <ng-template td-file-input-label>
           <mat-icon>attach_file</mat-icon>
           <span>
-      Wybierz plik...
-      <span [hidden]="!singleFileUpload?.required">*</span>
-        </span>
+      Wybierz pliki...
+    </span>
         </ng-template>
       </td-file-upload>
+
       <br>
       <button class="float-md-right" mat-raised-button type="submit">Wyślij</button>
     </form>
