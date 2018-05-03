@@ -25,5 +25,9 @@
 
 body {
   background-color: rgb(240, 243, 247) !important;
-  /*background-color: red;*/
+  width: 100% !important;
 }
+html{
+  background-color: rgb(240, 243, 247) !important;
+}
+
