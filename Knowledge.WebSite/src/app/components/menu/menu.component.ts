@@ -31,6 +31,7 @@ export class MenuComponent implements OnInit {
   }
 
   openSearchBox(): void {
+    this.hideMobileMenu();
     this.dialog.open(SearchDialogComponent, {
       width: '350px',
       height: '170px'

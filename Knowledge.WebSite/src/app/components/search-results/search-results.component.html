@@ -1,3 +1,32 @@
-<p>
-  {{query}}
-</p>
+<div class="row mx-auto justify-content-center">
+  <mat-toolbar color="primary" class="toolbar">
+    Wyszukiwarka
+  </mat-toolbar>
+  <div class="col-xl-8">
+    <mat-card *ngFor="let post of posts">
+      <mat-card-title>{{post.title}}</mat-card-title>
+      <mat-card-subtitle><b>{{post.school}} | {{post.type}}</b> <i style="float: right;">{{post.userNickname}} | {{post.dateOfAdding}}</i>
+      </mat-card-subtitle>
+      <mat-card-content>
+        <div class="d-flex">
+          <img class="col-4 overflow-hidden" style="object-fit:scale-down; height: 100%;"
+               src="assets/img/placeholder.jpg">
+          <div class="overflow-hidden col-8" style="width: 100%;">{{post.description}}</div>
+        </div>
+      </mat-card-content>
+      <mat-card-actions>
+        <hr>
+        <div style="display: flex; justify-content: space-between;align-items:center">
+          <div>
+            <button  mat-button><i class="fa-download fa"></i> Pobierz</button>
+          </div>
+          <div style="font-weight: bold; font-size: large">
+            <button mat-icon-button style="color: rgb(63, 81, 181)"><i class="fa-plus-square fa"></i></button>
+            <span>{{post.points}}</span>
+            <button mat-icon-button><i class="fa-minus-square fa" style="color: red;"></i></button>
+          </div>
+        </div>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>

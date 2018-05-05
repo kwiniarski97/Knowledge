@@ -10,7 +10,7 @@ import {AddComponent} from './components/add/add.component';
 import {NotFoundComponent} from './components/not-found/not-found.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {
-  MatButtonModule,
+  MatButtonModule, MatCardModule,
   MatDialogModule,
   MatIconModule,
   MatInputModule,
@@ -53,6 +53,7 @@ import {SearchDialogComponent} from './components/menu/search-dialog/search-dial
     MatToolbarModule,
     MatSelectModule,
     MatDialogModule,
+    MatCardModule,
     RouterModule.forRoot([
       {path: '', component: HomeComponent, pathMatch: 'full'},
       {path: 'add', component: AddComponent},

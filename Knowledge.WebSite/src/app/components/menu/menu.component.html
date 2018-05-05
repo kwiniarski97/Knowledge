@@ -18,6 +18,7 @@
       <div *ngFor="let route of routes" class="mobile-menu-entry" (click)="hideMobileMenu()" [routerLink]="route.path">
         {{route.name}}
       </div>
+      <div class="mobile-menu-entry" (click)="openSearchBox()">Szukaj</div>
     </div>
 
     <div class="d-none d-sm-none d-md-inline mr-1 col-4">
