@@ -8,18 +8,18 @@ import {Router} from '@angular/router';
 })
 export class SearchboxComponent implements OnInit {
 
-  public static search(query: string) {
-    // todo
-    console.log(query);
-  }
 
   constructor(private router: Router) {
+
   }
 
   ngOnInit() {
   }
 
   search(query: string) {
-    SearchboxComponent.search(query);
+    if (query.length > 3) {
+      this.router.navigateByUrl('home', {skipLocationChange: true}).then(() =>
+        this.router.navigate([`search/${query}`]));
+    }
   }
 }

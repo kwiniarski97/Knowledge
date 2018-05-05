@@ -1,6 +1,6 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
-import {RouterModule} from '@angular/router';
+import {ActivatedRoute, RouterModule} from '@angular/router';
 
 
 import {AppComponent} from './app.component';
@@ -22,8 +22,8 @@ import {SearchResultsComponent} from './components/search-results/search-results
 import {CovalentFileModule, CovalentLayoutModule, CovalentStepsModule} from '@covalent/core';
 import {FormsModule} from '@angular/forms';
 import {MenuComponent} from './components/menu/menu.component';
-import { EnumToArrayPipe } from './pipes/enum-to-array.pipe';
-import { SearchDialogComponent } from './components/menu/search-dialog/search-dialog.component';
+import {EnumToArrayPipe} from './pipes/enum-to-array.pipe';
+import {SearchDialogComponent} from './components/menu/search-dialog/search-dialog.component';
 
 
 @NgModule({
