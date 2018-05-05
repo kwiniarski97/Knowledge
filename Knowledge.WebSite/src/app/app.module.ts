@@ -9,12 +9,21 @@ import {SearchboxComponent} from './components/searchbox/searchbox.component';
 import {AddComponent} from './components/add/add.component';
 import {NotFoundComponent} from './components/not-found/not-found.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MatButtonModule, MatIconModule, MatInputModule, MatMenuModule, MatSelectModule, MatToolbarModule} from '@angular/material';
+import {
+  MatButtonModule,
+  MatDialogModule,
+  MatIconModule,
+  MatInputModule,
+  MatMenuModule,
+  MatSelectModule,
+  MatToolbarModule
+} from '@angular/material';
 import {SearchResultsComponent} from './components/search-results/search-results.component';
 import {CovalentFileModule, CovalentLayoutModule, CovalentStepsModule} from '@covalent/core';
 import {FormsModule} from '@angular/forms';
 import {MenuComponent} from './components/menu/menu.component';
 import { EnumToArrayPipe } from './pipes/enum-to-array.pipe';
+import { SearchDialogComponent } from './components/menu/search-dialog/search-dialog.component';
 
 
 @NgModule({
@@ -26,7 +35,8 @@ import { EnumToArrayPipe } from './pipes/enum-to-array.pipe';
     NotFoundComponent,
     SearchResultsComponent,
     MenuComponent,
-    EnumToArrayPipe
+    EnumToArrayPipe,
+    SearchDialogComponent
 
   ],
   imports: [
@@ -42,6 +52,7 @@ import { EnumToArrayPipe } from './pipes/enum-to-array.pipe';
     MatMenuModule,
     MatToolbarModule,
     MatSelectModule,
+    MatDialogModule,
     RouterModule.forRoot([
       {path: '', component: HomeComponent, pathMatch: 'full'},
       {path: 'add', component: AddComponent},
@@ -50,7 +61,8 @@ import { EnumToArrayPipe } from './pipes/enum-to-array.pipe';
     ])
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [SearchDialogComponent]
 })
 export class AppModule {
 }

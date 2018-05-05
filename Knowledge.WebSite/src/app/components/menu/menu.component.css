@@ -1,10 +1,9 @@
 .top-menu {
   color: #fff;
   vertical-align: top;
-  /*overflow: visible;*/
+  height: 63px;
   padding-top: 10px;
   padding-bottom: 10px;
-
 }
 
 .top-menu-stick {
@@ -23,23 +22,45 @@
   font-weight: bold;
 }
 
-.menu-entry{
+.menu-entry {
   cursor: pointer;
+  font-weight: bold;
 }
 
 .small-search-box {
   padding: 10px;
   width: 72%;
-  vertical-align: middle !important;
   background-color: rgba(0, 0, 0, 0.1);
 }
 
-.search-button{
+.search-button {
   width: 10%;
 }
 
 .small-search-box:focus {
   /*todo some kind of indicator that user is inputting*/
+}
+
+.mobile-menu-container {
+  position: absolute;
+  top: 62px;
+  width: 100%;
+  left: 0;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+.mobile-menu-entry {
+  height: 48px;
+  text-align: center;
+  font-weight: bold;
+  width: 100%;
+  line-height: 48px
+}
+
+.mobile-menu-entry:hover {
+  background-color: rgba(0, 0, 0, 0.1);
 }
 
 ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */

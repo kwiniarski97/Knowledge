@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-searchbox',
@@ -7,9 +8,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SearchboxComponent implements OnInit {
 
-  constructor() { }
+  public static search(query: string) {
+    // todo
+    console.log(query);
+  }
+
+  constructor(private router: Router) {
+  }
 
   ngOnInit() {
   }
 
+  search(query: string) {
+    SearchboxComponent.search(query);
+  }
 }

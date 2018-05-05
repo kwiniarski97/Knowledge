@@ -1,8 +1,8 @@
-<mat-toolbar color="primary" class="toolbar col-12">
-  <span>Dodawanie nowego materiału</span>
-</mat-toolbar>
 <div class="row d-flex ">
-  <div class="ml-3 mr-3 div-shadow div-rounded add-box col-xl-7 mx-auto text-center p-4 col-md-11">
+  <mat-toolbar color="primary" class="toolbar">
+    <span class="ml-3">Dodawanie nowego materiału</span>
+  </mat-toolbar>
+  <div class="div-shadow div-rounded add-box col-xl-7 mx-auto text-center p-4 col-md-11">
     <form (submit)="send()">
 
       <mat-form-field>
@@ -11,8 +11,14 @@
       </mat-form-field>
 
       <mat-form-field>
+        <mat-select #school placeholder="Szkoła" required>
+          <mat-option *ngFor="let school of schools | enumToArray" [value]="school">{{schools[school]}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field>
         <mat-select #type placeholder="Rodzaj" required>
-          <mat-option *ngFor="let typ of types | enumToArray" [value]="typ">{{types[typ]}}</mat-option>
+          <mat-option *ngFor="let type of types | enumToArray" [value]="type">{{types[type]}}</mat-option>
         </mat-select>
       </mat-form-field>
 

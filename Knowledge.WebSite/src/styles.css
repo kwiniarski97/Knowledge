@@ -2,6 +2,7 @@
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 @import '~bootstrap/dist/css/bootstrap.min.css';
 
+
 .div-shadow {
   box-shadow: 0 4px 6px hsla(0, 0%, 0%, 0.2);
 }
@@ -25,7 +26,6 @@
 
 body {
   background-color: rgb(240, 243, 247) !important;
-  width: 100% !important;
 }
 html{
   background-color: rgb(240, 243, 247) !important;
