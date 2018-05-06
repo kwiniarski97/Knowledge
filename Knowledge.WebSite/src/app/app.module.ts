@@ -57,7 +57,7 @@ import {SearchDialogComponent} from './components/menu/search-dialog/search-dial
     RouterModule.forRoot([
       {path: '', component: HomeComponent, pathMatch: 'full'},
       {path: 'add', component: AddComponent},
-      {path: 'search/:query', component: SearchResultsComponent},
+      {path: 'search/:page/:query', component: SearchResultsComponent},
       {path: '**', component: NotFoundComponent},
     ])
   ],

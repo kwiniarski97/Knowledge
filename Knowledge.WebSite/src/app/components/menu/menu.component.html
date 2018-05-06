@@ -22,10 +22,12 @@
     </div>
 
     <div class="d-none d-sm-none d-md-inline mr-1 col-4">
-      <div class="d-xl-inline-flex col-12 flex-fill d-md-none d-none " >
-        <input #searchBox class="small-search-box" matInput type="text" placeholder="Szukaj...">
-        <button mat-button (click)="search(searchBox.value)" class="search-button">Szukaj</button>
-      </div>
+      <form>
+        <div class="d-xl-inline-flex col-12 flex-fill d-md-none d-none ">
+          <input #searchBox class="small-search-box" matInput type="text" placeholder="Szukaj...">
+          <button mat-button (click)="search(searchBox.value)" class="search-button">Szukaj</button>
+        </div>
+      </form>
       <button mat-button (click)="openSearchBox()" class="d-xl-none d-sm-none d-md-inline d-none float-right">Szukaj
       </button>
     </div>

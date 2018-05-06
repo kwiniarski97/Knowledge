@@ -1,8 +1,10 @@
-<div class="align-items-center d-xl-flex">
-  <mat-form-field  class="col-xl-10 col-sm-12 col-xs-12 " style="overflow: hidden">
-    <input #searchBox class="input" matInput placeholder="Szukaj...">
-  </mat-form-field>
-  <button class="col-xl-2 col-sm-8 col-xs-8 mx-sm-auto d-sm-block d-xl-inline float-xl-right " mat-raised-button
-          (click)="search(searchBox.value)">Szukaj
-  </button>
-</div>
+<form>
+  <div class="align-items-center d-xl-flex">
+    <mat-form-field class="col-xl-10 col-sm-12 col-xs-12 " style="overflow: hidden">
+      <input #searchBox class="input" matInput placeholder="Szukaj...">
+    </mat-form-field>
+    <button class="col-xl-2 col-sm-8 col-xs-8 mx-sm-auto d-sm-block d-xl-inline float-xl-right " mat-raised-button
+            type="submit" (click)="search(searchBox.value)">Szukaj
+    </button>
+  </div>
+</form>

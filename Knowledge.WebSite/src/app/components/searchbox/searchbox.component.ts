@@ -19,7 +19,7 @@ export class SearchboxComponent implements OnInit {
   search(query: string) {
     if (query.length > 3) {
       this.router.navigateByUrl('home', {skipLocationChange: true}).then(() =>
-        this.router.navigate([`search/${query}`]));
+        this.router.navigate([`search/1/${query}`]));
     }
   }
 }
