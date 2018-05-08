@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {MaterialType} from '../../models/material-type.enum';
+import {MaterialTypes} from '../../models/material-type.enum';
 import {SchoolTypes} from '../../models/school-types.enum';
 
 @Component({
@@ -10,7 +10,7 @@ import {SchoolTypes} from '../../models/school-types.enum';
 export class AddComponent implements OnInit {
 
   model: any = {};
-  types = MaterialType;
+  types = MaterialTypes;
   schools = SchoolTypes;
   files: File[] = [];
 

@@ -1,6 +1,6 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
-import {ActivatedRoute, RouterModule} from '@angular/router';
+import {RouterModule} from '@angular/router';
 
 
 import {AppComponent} from './app.component';
@@ -24,6 +24,8 @@ import {FormsModule} from '@angular/forms';
 import {MenuComponent} from './components/menu/menu.component';
 import {EnumToArrayPipe} from './pipes/enum-to-array.pipe';
 import {SearchDialogComponent} from './components/menu/search-dialog/search-dialog.component';
+import {PostService} from './services/post.service';
+import {HttpClientModule} from '@angular/common/http';
 
 
 @NgModule({
@@ -42,6 +44,7 @@ import {SearchDialogComponent} from './components/menu/search-dialog/search-dial
   imports: [
     BrowserModule,
     FormsModule,
+    HttpClientModule,
     BrowserAnimationsModule,
     MatInputModule,
     MatButtonModule,
@@ -61,7 +64,7 @@ import {SearchDialogComponent} from './components/menu/search-dialog/search-dial
       {path: '**', component: NotFoundComponent},
     ])
   ],
-  providers: [],
+  providers: [PostService],
   bootstrap: [AppComponent],
   entryComponents: [SearchDialogComponent]
 })

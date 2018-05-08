@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -11,6 +12,10 @@ using Microsoft.Extensions.Options;
 
 namespace Knowledge
 {
+    using AutoMapper;
+
+    using Knowledge.Repositories;
+    using Knowledge.Services;
 
     public class Startup
     {
@@ -24,8 +29,13 @@ namespace Knowledge
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            
             services.AddMvc();
+
+            services.AddAutoMapper();
+
+            services.AddTransient<IPostService, PostService>();
+
+            services.AddTransient<IPostRepository, InMemoryDataBase>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -35,6 +45,10 @@ namespace Knowledge
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseCors(policy => { policy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader().AllowCredentials(); });
+
+            app.UseStaticFiles();
 
             app.UseMvc();
         }

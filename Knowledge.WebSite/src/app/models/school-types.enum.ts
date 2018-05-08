@@ -1,6 +1,6 @@
 export enum SchoolTypes {
-  Podstawowa = 'Podstawowa',
-  Srednia = 'Średnia',
-  Wyzsza = 'Wyższa'
+  Podstawowa,
+  Średnia,
+  Wyższa
 
 }

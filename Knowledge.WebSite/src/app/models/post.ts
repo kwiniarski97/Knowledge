@@ -1,5 +1,5 @@
 import {SchoolTypes} from './school-types.enum';
-import {MaterialType} from './material-type.enum';
+import {MaterialTypes} from './material-type.enum';
 import {User} from './user';
 
 export class Post {
@@ -7,11 +7,11 @@ export class Post {
   title: string;
   description: string;
   school: SchoolTypes;
-  type: MaterialType;
+  materialType: MaterialTypes;
   thumbImagePath: string;
   filePath: string;
   points: number;
-  downloads: number;
+  numberOfDownloads: number;
   user: User;
-  dateOfAdding: string;
+  addDateUtc: string;
 }

@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {SchoolTypes} from '../../models/school-types.enum';
-import {MaterialType} from '../../models/material-type.enum';
+import {MaterialTypes} from '../../models/material-type.enum';
 import {Post} from '../../models/post';
-import {User} from '../../models/user';
+import {PostService} from '../../services/post.service';
 
 @Component({
   selector: 'app-search-results',
@@ -14,24 +14,12 @@ export class SearchResultsComponent implements OnInit {
 
   query: string;
 
-  posts: Post[] = [{
-    id: 1,
-    title: 'Title placeholder',
-    description: 'Description placeholder',
-    school: SchoolTypes.Podstawowa,
-    type: MaterialType.Kartkowka,
-    thumbImagePath: 'assets/img/placeholder.jpg',
-    filePath: 'assets/img/placeholder.jpg',
-    points: 17,
-    downloads: 103,
-    user: {nickname: 'asdada'},
-    dateOfAdding: new Date().toLocaleDateString()
-  }];
+  posts: Post[];
 
   currentPage = 1;
   numberOfPages: number = 10;
 
-  constructor(private route: ActivatedRoute) {
+  constructor(private route: ActivatedRoute, private postService: PostService) {
 
   }
 
@@ -40,6 +28,11 @@ export class SearchResultsComponent implements OnInit {
     this.currentPage = this.route.snapshot.params['page'];
 
     // todo pobierz z serwisu
+    this.postService.search(this.query).subscribe(response => {
+      this.posts = response;
+    }, err => {
+      console.log(err);
+    });
   }
 
 
@@ -70,7 +63,20 @@ export class SearchResultsComponent implements OnInit {
     // todo
   }
 
-  downloadFile(post: Post) {
+  downloadFile(filePath: string) {
     // todo
+    window.open(filePath, '_blank');
+  }
+
+  getSchoolTypeName(school: SchoolTypes): string {
+    return SchoolTypes[school];
+  }
+
+  getMaterialTypeName(materialType: MaterialTypes): string {
+    return MaterialTypes[materialType];
+  }
+
+  getShortDate(addDateUtc: Date) {
+    return new Date(addDateUtc).toLocaleDateString();
   }
 }
