@@ -76,7 +76,7 @@ export class SearchResultsComponent implements OnInit {
     return MaterialTypes[materialType];
   }
 
-  getShortDate(addDateUtc: Date) {
+  getShortDate(addDateUtc: string) {
     return new Date(addDateUtc).toLocaleDateString();
   }
 }

@@ -3,7 +3,7 @@
     <span class="ml-3">Dodawanie nowego materiału</span>
   </mat-toolbar>
   <div class="div-shadow div-rounded add-box col-xl-7 mx-auto text-center p-4 col-md-11">
-    <form (submit)="send()">
+    <form #addForm (submit)="addForm.checkValidity() && send()">
 
       <mat-form-field>
         <input #title matInput name="title" ([ngModel])="post.title" placeholder="Tytuł" required minlength="5"
@@ -11,13 +11,13 @@
       </mat-form-field>
 
       <mat-form-field>
-        <mat-select #school placeholder="Szkoła" required>
+        <mat-select #school placeholder="Szkoła" name="school" [(ngModel)]="model.school" required>
           <mat-option *ngFor="let school of schools | enumToArray" [value]="school">{{schools[school]}}</mat-option>
         </mat-select>
       </mat-form-field>
 
       <mat-form-field>
-        <mat-select #type placeholder="Rodzaj" required>
+        <mat-select #type placeholder="Rodzaj" name="materialType" [(ngModel)]="model.materialType" required>
           <mat-option *ngFor="let type of types | enumToArray" [value]="type">{{types[type]}}</mat-option>
         </mat-select>
       </mat-form-field>
