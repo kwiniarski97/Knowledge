@@ -9,6 +9,8 @@
     {
         Task AddAsync(Post post);
 
-        Task<IEnumerable<Post>> SearchAsync(string query);
+        Task<IEnumerable<Post>> SearchAsync(string query, int currentPage, int itemsPerPage);
+
+        Task<int> CountTotalItemsOfSearchQuery(string query);
     }
 }

@@ -1,15 +1,15 @@
 ﻿namespace Knowledge.Services
 {
-    using System.Collections;
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
     using Knowledge.Models.Dto;
+    using Knowledge.Models.Responses;
 
     public interface IPostService
     {
         Task AddPostAsync(PostDto post);
 
-        Task<IEnumerable<PostDto>> SearchAsync(string query);
+        Task<SearchResponse> SearchAsync(int currentPage, string query);
     }
 }

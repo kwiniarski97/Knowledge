@@ -25,10 +25,10 @@
             return this.Ok();
         }
 
-        [HttpGet("search/{query}")]
-        public async Task<IActionResult> SimpleSearchAsync(string query)
+        [HttpGet("search/{currentPage}/{query}")]
+        public async Task<IActionResult> SimpleSearchAsync(int currentPage, string query)
         {
-            var posts = await this.postService.SearchAsync(query);
+            var posts = await this.postService.SearchAsync(currentPage, query);
             return this.Ok(posts);
         }
     }

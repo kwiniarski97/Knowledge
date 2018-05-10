@@ -17,7 +17,8 @@
                              {
                                  new Post
                                      {
-                                         Description = "description placeholder longer than 30 characters",
+                                         Description =
+                                             "description placeholder longer than 30 characters",
                                          FilePath = "/",
                                          AddDateUtc = DateTime.UtcNow,
                                          Id = 0,
@@ -27,19 +28,29 @@
                                          Points = 0,
                                          School = SchoolType.Podstawowa,
                                          ThumbImagePath = "/",
-                                         User = new User(){Nickname = "dupa123"}
+                                         User = new User() { Nickname = "dupa123" }
                                      },
                              };
         }
 
         public async Task AddAsync(Post post)
         {
-             this.posts.Add(post);
+            this.posts.Add(post);
         }
 
-        public async Task<IEnumerable<Post>> SearchAsync(string query)
+        public async Task<IEnumerable<Post>> SearchAsync(string query, int currentPage, int itemsPerPage)
         {
             // this is simplicited for development purpouses
+            return this.SearchByQuery(query).Skip((currentPage - 1) * itemsPerPage).Take(itemsPerPage);
+        }
+
+        public async Task<int> CountTotalItemsOfSearchQuery(string query)
+        {
+            return this.SearchByQuery(query).Count();
+        }
+
+        private IEnumerable<Post> SearchByQuery(string query)
+        {
             return this.posts.Where(p => p.Title.Contains(query) || p.Description.Contains(query));
         }
     }
