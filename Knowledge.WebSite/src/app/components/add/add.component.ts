@@ -1,6 +1,7 @@
 import {Component, EventEmitter, OnInit} from '@angular/core';
 import {MaterialTypes} from '../../models/material-type.enum';
 import {SchoolTypes} from '../../models/school-types.enum';
+import {Observable} from 'rxjs/Observable';
 
 @Component({
   selector: 'app-add',
@@ -9,7 +10,7 @@ import {SchoolTypes} from '../../models/school-types.enum';
 })
 export class AddComponent implements OnInit {
 
-  private static eventEmitter: EventEmitter<string> = new EventEmitter<string>();
+  private static eventEmitter: EventEmitter<string> = new EventEmitter<string>(true);
   model: any = {};
   types = MaterialTypes;
   schools = SchoolTypes;
@@ -39,6 +40,7 @@ export class AddComponent implements OnInit {
   }
 
   uploadMultipleEvent(files: FileList | File): void {
+    AddComponent.eventEmitter = new EventEmitter<string>();
     if (files instanceof FileList) {
       this.encodeMultipleFiles(files);
     } else {
@@ -48,25 +50,35 @@ export class AddComponent implements OnInit {
 
   cancelMultipleEvent(): void {
     this.files.length = 0;
+    this.encodedFiles.length = 0;
+    this.model.encodedFiles.length = 0;
     this.model.files = '';
   }
 
   private async encodeMultipleFiles(files: FileList) {
+    this.encodedFiles.length = 0;
     AddComponent.eventEmitter.subscribe(data => {
       this.encodedFiles.push(data);
+    }, error => {
+    }, complete => {
+      AddComponent.eventEmitter.unsubscribe();
     });
     for (let i = 0; i < files.length; i++) {
-      await this.encode(files[i]);
-
+      this.encode(files[i]);
     }
+
   }
 
-  private async encodeSingleFile(file: File) {
-    // todo zrob zeby za kazdym razem wywolywala sie na nowym threadzie i gdy skonczy encodowac to niech to wrzuca do arraya stringFiles
+  private encodeSingleFile(file: File) {
+    this.encodedFiles.length = 0;
     AddComponent.eventEmitter.subscribe(data => {
       this.encodedFiles.push(data);
+
+    }, error => {
+    }, complete => {
+      AddComponent.eventEmitter.unsubscribe();
     });
-    await this.encode(file);
+    this.encode(file);
 
   }
 
