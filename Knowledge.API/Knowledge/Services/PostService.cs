@@ -36,11 +36,15 @@
         {
             var results = await this.postRepository.SearchAsync(query, currentPage, ItemsPerPage);
             var posts = this.mapper.Map<IEnumerable<PostDto>>(results).ToArray();
-            var totalItems = await this.postRepository.CountTotalItemsOfSearchQuery(query);
 
-            var response = new SearchResponse(currentPage, ItemsPerPage, totalItems, posts);
+            var response = new SearchResponse(currentPage, ItemsPerPage, posts);
 
             return response;
+        }
+
+        public async Task<int> GetNumberOfItemsInSearchQueryAsync(string query)
+        {
+            return await this.postRepository.CountTotalItemsOfSearchQuery(query);
         }
     }
 }

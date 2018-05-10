@@ -17,7 +17,10 @@ export class SearchResultsComponent implements OnInit {
   posts: Post[];
 
   currentPage = 1;
+
   numberOfPages: number = 10;
+
+  totalItems: number;
 
   constructor(private route: ActivatedRoute, private postService: PostService) {
 
@@ -28,10 +31,17 @@ export class SearchResultsComponent implements OnInit {
     this.currentPage = this.route.snapshot.params['page'];
 
     // todo pobierz z serwisu
-    this.postService.search(this.query).subscribe(response => {
-      this.posts = response;
+    this.postService.search(this.query, this.currentPage).subscribe(response => {
+      this.currentPage = response['currentPage'];
+      this.posts = response['posts'];
+      //todo zbinduj reszte propów
     }, err => {
       console.log(err);
+    });
+
+    this.postService.getNumberOfPostsInSearchQuery(this.query).subscribe(response => {
+      this.totalItems = response;
+      this.numberOfPages = this.totalItems / this.numberOfPages;
     });
   }
 

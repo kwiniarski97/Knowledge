@@ -1,5 +1,6 @@
 ﻿namespace Knowledge.Controllers
 {
+    using System;
     using System.Threading.Tasks;
 
     using Knowledge.Models.Dto;
@@ -30,6 +31,13 @@
         {
             var posts = await this.postService.SearchAsync(currentPage, query);
             return this.Ok(posts);
+        }
+
+        [HttpGet("count/{query}")]
+        public async Task<IActionResult> GetNumberOfPostsInQuery(string query)
+        {
+            var number = await this.postService.GetNumberOfItemsInSearchQueryAsync(query);
+            return this.Ok(value: number);
         }
     }
 }

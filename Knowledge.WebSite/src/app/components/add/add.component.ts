@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnInit} from '@angular/core';
 import {MaterialTypes} from '../../models/material-type.enum';
 import {SchoolTypes} from '../../models/school-types.enum';
 
@@ -9,10 +9,12 @@ import {SchoolTypes} from '../../models/school-types.enum';
 })
 export class AddComponent implements OnInit {
 
+  private static eventEmitter: EventEmitter<string> = new EventEmitter<string>();
   model: any = {};
   types = MaterialTypes;
   schools = SchoolTypes;
   files: File[] = [];
+  encodedFiles: string[] = [];
 
   constructor() {
   }
@@ -22,6 +24,7 @@ export class AddComponent implements OnInit {
 
   send(): any {
     // todo
+    this.model.encodedFiles = this.encodedFiles;
     console.log(this.model);
   }
 
@@ -37,11 +40,9 @@ export class AddComponent implements OnInit {
 
   uploadMultipleEvent(files: FileList | File): void {
     if (files instanceof FileList) {
-      for (let i = 0; i < files.length; i++) {
-        // todo code to base64 add to model
-      }
+      this.encodeMultipleFiles(files);
     } else {
-      // todo code to base64 add to model
+      this.encodeSingleFile(files);
     }
   }
 
@@ -50,4 +51,33 @@ export class AddComponent implements OnInit {
     this.model.files = '';
   }
 
+  private async encodeMultipleFiles(files: FileList) {
+    AddComponent.eventEmitter.subscribe(data => {
+      this.encodedFiles.push(data);
+    });
+    for (let i = 0; i < files.length; i++) {
+      await this.encode(files[i]);
+
+    }
+  }
+
+  private async encodeSingleFile(file: File) {
+    // todo zrob zeby za kazdym razem wywolywala sie na nowym threadzie i gdy skonczy encodowac to niech to wrzuca do arraya stringFiles
+    AddComponent.eventEmitter.subscribe(data => {
+      this.encodedFiles.push(data);
+    });
+    await this.encode(file);
+
+  }
+
+  private encode(file: File) {
+    const fileReader = new FileReader();
+
+    fileReader.readAsBinaryString(file);
+
+    fileReader.onloadend = (function () {
+      AddComponent.eventEmitter.emit(fileReader.result);
+    });
+
+  }
 }

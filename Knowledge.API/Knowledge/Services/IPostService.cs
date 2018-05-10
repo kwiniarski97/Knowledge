@@ -11,5 +11,7 @@
         Task AddPostAsync(PostDto post);
 
         Task<SearchResponse> SearchAsync(int currentPage, string query);
+
+        Task<int> GetNumberOfItemsInSearchQueryAsync(string query);
     }
 }

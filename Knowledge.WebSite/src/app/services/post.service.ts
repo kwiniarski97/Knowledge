@@ -16,8 +16,11 @@ export class PostService {
     return this.http.post(this.routeApiUrl + 'add', post);
   }
 
-  search(query: string): Observable<any> {
-    return this.http.get(this.routeApiUrl + `search/${query}`);
+  search(query: string, currentPage: number): Observable<any> {
+    return this.http.get(this.routeApiUrl + `search/${currentPage}/${query}`);
   }
 
+  getNumberOfPostsInSearchQuery(query: string): Observable<any> {
+    return this.http.get(this.routeApiUrl + `count/${query}`);
+  }
 }
