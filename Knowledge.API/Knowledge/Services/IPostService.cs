@@ -4,13 +4,12 @@
     using System.Threading.Tasks;
 
     using Knowledge.Models.Dto;
-    using Knowledge.Models.Responses;
 
     public interface IPostService
     {
-        Task AddPostAsync(PostDto post);
+        Task AddPostAsync(AddRequestDto addRequest);
 
-        Task<SearchResponse> SearchAsync(int currentPage, string query);
+        Task<SearchResponseDto> SearchAsync(int currentPage, string query);
 
         Task<int> GetNumberOfItemsInSearchQueryAsync(string query);
     }

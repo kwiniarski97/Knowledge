@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {SchoolTypes} from '../../models/school-types.enum';
-import {MaterialTypes} from '../../models/material-type.enum';
+import {SchoolType} from '../../models/school-types.enum';
+import {MaterialType} from '../../models/material-type.enum';
 import {Post} from '../../models/post';
 import {PostService} from '../../services/post.service';
 
@@ -78,12 +78,12 @@ export class SearchResultsComponent implements OnInit {
     window.open(filePath, '_blank');
   }
 
-  getSchoolTypeName(school: SchoolTypes): string {
-    return SchoolTypes[school];
+  getSchoolTypeName(school: SchoolType): string {
+    return SchoolType[school];
   }
 
-  getMaterialTypeName(materialType: MaterialTypes): string {
-    return MaterialTypes[materialType];
+  getMaterialTypeName(materialType: MaterialType): string {
+    return MaterialType[materialType];
   }
 
   getShortDate(addDateUtc: string) {

@@ -28,7 +28,7 @@
                                          Points = 0,
                                          School = SchoolType.Podstawowa,
                                          ThumbImagePath = "/",
-                                         User = new User() { Nickname = "dupa123" }
+                                         UserNickname = "dupa123"
                                      },
                              };
         }

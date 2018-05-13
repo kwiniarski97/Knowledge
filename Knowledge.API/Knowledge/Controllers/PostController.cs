@@ -20,9 +20,9 @@
         }
 
         [HttpPost("add")]
-        public async Task<IActionResult> AddAsync([FromBody] PostDto postDto)
+        public async Task<IActionResult> AddAsync([FromBody] AddRequestDto addRequest)
         {
-            await this.postService.AddPostAsync(postDto);
+            await this.postService.AddPostAsync(addRequest);
             return this.Ok();
         }
 
@@ -39,5 +39,7 @@
             var number = await this.postService.GetNumberOfItemsInSearchQueryAsync(query);
             return this.Ok(value: number);
         }
+
+ 
     }
 }

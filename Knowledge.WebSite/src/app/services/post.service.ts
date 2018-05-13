@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Post} from '../models/post';
 import {Config} from '../config';
 import {Observable} from 'rxjs/Observable';
+import {AddRequest} from '../models/addRequest';
 
 @Injectable()
 export class PostService {
@@ -12,8 +12,8 @@ export class PostService {
   constructor(private http: HttpClient) {
   }
 
-  add(post: Post): Observable<any> {
-    return this.http.post(this.routeApiUrl + 'add', post);
+  add(request: AddRequest): Observable<any> {
+    return this.http.post(this.routeApiUrl + 'add', request);
   }
 
   search(query: string, currentPage: number): Observable<any> {

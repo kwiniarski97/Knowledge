@@ -2,14 +2,15 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading;
     using System.Threading.Tasks;
 
     using AutoMapper;
 
     using Knowledge.Configs;
+    using Knowledge.Encryptors;
     using Knowledge.Models;
     using Knowledge.Models.Dto;
-    using Knowledge.Models.Responses;
     using Knowledge.Repositories;
 
     public class PostService : IPostService
@@ -26,18 +27,39 @@
             this.mapper = mapper;
         }
 
-        public async Task AddPostAsync(PostDto postDto)
+        public async Task AddPostAsync(AddRequestDto addRequest)
         {
-            var post = this.mapper.Map<Post>(postDto);
+            var filePath = string.Empty;
+            var fileSnapshotImagePath = string.Empty;
+
+            // todo dodaj && addRequest.UserNickname != null jak bedzie logowanie
+            if (addRequest.EncodedFile != null && addRequest.FileName != null)
+            {
+                var encryptedFile = new EncryptedFile(addRequest);
+                await encryptedFile.DecryptAndSaveFile();
+                filePath = encryptedFile.FilePath;
+                fileSnapshotImagePath = encryptedFile.SnapshotImagePath;
+            }
+
+            var post = new Post(
+                addRequest.Title,
+                addRequest.Description,
+                filePath,
+                addRequest.School,
+                addRequest.MaterialType,
+                fileSnapshotImagePath,
+                addRequest.UserNickname);
+
             await this.postRepository.AddAsync(post);
         }
 
-        public async Task<SearchResponse> SearchAsync(int currentPage, string query)
+        // todo refractor
+        public async Task<SearchResponseDto> SearchAsync(int currentPage, string query)
         {
             var results = await this.postRepository.SearchAsync(query, currentPage, ItemsPerPage);
             var posts = this.mapper.Map<IEnumerable<PostDto>>(results).ToArray();
 
-            var response = new SearchResponse(currentPage, ItemsPerPage, posts);
+            var response = new SearchResponseDto(currentPage, ItemsPerPage, posts);
 
             return response;
         }

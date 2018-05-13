@@ -1,7 +1,10 @@
 import {Component, EventEmitter, OnInit} from '@angular/core';
-import {MaterialTypes} from '../../models/material-type.enum';
-import {SchoolTypes} from '../../models/school-types.enum';
-import {Observable} from 'rxjs/Observable';
+import {MaterialType} from '../../models/material-type.enum';
+import {SchoolType} from '../../models/school-types.enum';
+import {BehaviorSubject} from 'rxjs/BehaviorSubject';
+import {PostService} from '../../services/post.service';
+import {AddRequest} from '../../models/addRequest';
+import {async} from '@angular/core/testing';
 
 @Component({
   selector: 'app-add',
@@ -10,86 +13,63 @@ import {Observable} from 'rxjs/Observable';
 })
 export class AddComponent implements OnInit {
 
-  private static eventEmitter: EventEmitter<string> = new EventEmitter<string>(true);
-  model: any = {};
-  types = MaterialTypes;
-  schools = SchoolTypes;
-  files: File[] = [];
-  encodedFiles: string[] = [];
+  model: AddRequest = new AddRequest();
+  types = MaterialType;
+  schools = SchoolType;
+  file: File;
+  isEncodingEnded = true;
 
-  constructor() {
+  constructor(private postService: PostService) {
   }
 
   ngOnInit() {
   }
 
-  send(): any {
-    // todo
-    this.model.encodedFiles = this.encodedFiles;
+  send(): void {
+    this.postService.add(this.model).subscribe();
     console.log(this.model);
   }
 
-  selectMultipleEvent(files: FileList | File): void {
-    if (files instanceof FileList) {
-      for (let i = 0; i < files.length; i++) {
-        this.files.push(files[i]);
-      }
-    } else {
-      this.files.push(files);
-    }
+  selectEvent(file: File): void {
+    this.file = file;
+
   }
 
-  uploadMultipleEvent(files: FileList | File): void {
-    AddComponent.eventEmitter = new EventEmitter<string>();
-    if (files instanceof FileList) {
-      this.encodeMultipleFiles(files);
-    } else {
-      this.encodeSingleFile(files);
-    }
+  uploadEvent(file: File): void {
+    this.model.fileName = file.name;
+    this.encodeFile(file);
+
   }
 
-  cancelMultipleEvent(): void {
-    this.files.length = 0;
-    this.encodedFiles.length = 0;
-    this.model.encodedFiles.length = 0;
-    this.model.files = '';
+  cancelEvent(): void {
+    this.file = null;
   }
 
-  private async encodeMultipleFiles(files: FileList) {
-    this.encodedFiles.length = 0;
-    AddComponent.eventEmitter.subscribe(data => {
-      this.encodedFiles.push(data);
-    }, error => {
-    }, complete => {
-      AddComponent.eventEmitter.unsubscribe();
+
+  private encodeFile(file: File) {
+    this.encode(file).then(data => {
+      this.model.encodedFile = (data as string); // removes header from base64 string
     });
-    for (let i = 0; i < files.length; i++) {
-      this.encode(files[i]);
-    }
-
-  }
-
-  private encodeSingleFile(file: File) {
-    this.encodedFiles.length = 0;
-    AddComponent.eventEmitter.subscribe(data => {
-      this.encodedFiles.push(data);
-
-    }, error => {
-    }, complete => {
-      AddComponent.eventEmitter.unsubscribe();
-    });
-    this.encode(file);
 
   }
 
   private encode(file: File) {
-    const fileReader = new FileReader();
-
-    fileReader.readAsBinaryString(file);
-
-    fileReader.onloadend = (function () {
-      AddComponent.eventEmitter.emit(fileReader.result);
+    this.isEncodingEnded = false;
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        resolve(reader.result);
+        this.isEncodingEnded = true;
+      };
+      reader.onerror = error => {
+        reject(error);
+        this.isEncodingEnded = true;
+      };
     });
 
+
   }
+
+
 }

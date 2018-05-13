@@ -1,4 +1,4 @@
-export enum SchoolTypes {
+export enum SchoolType {
   Podstawowa,
   Średnia,
   Wyższa

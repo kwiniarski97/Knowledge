@@ -6,19 +6,35 @@
 
     public class Post
     {
-        private long id;
-
         private string title;
 
         private string description;
 
         private string filePath;
 
-        public long Id
+        public Post(
+            string title,
+            string description,
+            string filePath,
+            SchoolType school,
+            MaterialType materialType,
+            string thumbImagePath,
+            string userNickname)
         {
-            get => this.id;
-            set => this.id = value;
+            this.Title = title;
+            this.Description = description;
+            this.FilePath = filePath;
+            this.School = school;
+            this.MaterialType = materialType;
+            this.ThumbImagePath = thumbImagePath;
+            this.UserNickname = userNickname;
         }
+
+        public Post()
+        {
+        }
+
+        public long Id { get; set; }
 
         public string Title
         {
@@ -54,25 +70,13 @@
 
         public string ThumbImagePath { get; set; }
 
-        public string FilePath
-        {
-            get => this.filePath;
-            set
-            {
-                if (string.IsNullOrWhiteSpace(value))
-                {
-                    throw new Exception(Strings.errorWhenAddingFile);
-                }
-
-                this.filePath = value;
-            }
-        }
+        public string FilePath { get; set; }
 
         public int Points { get; set; } = 0;
 
         public uint NumberOfDownloads { get; set; } = 0;
 
-        public User User { get; set; }
+        public string UserNickname { get; set; }
 
         public DateTime AddDateUtc { get; set; } = DateTime.UtcNow;
     }

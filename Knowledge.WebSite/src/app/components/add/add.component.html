@@ -29,25 +29,20 @@
         <mat-hint align="end">{{description.value?.length || 0}}</mat-hint>
       </mat-form-field>
 
-      <td-file-upload #fileMultipleUpload (select)="selectMultipleEvent($event)" (upload)="uploadMultipleEvent($event)"
-                      (cancel)="cancelMultipleEvent()" accept=".pdf, .jpg, .png, .doc, .txt, .docx"
-                      defaultColor="primary" activeColor="warn" cancelColor="primary" multiple
-                      [disabled]="disabled" style="margin: 100px">
+      <td-file-upload #singleFileUpload [(ngModel)]="files" (select)="selectEvent($event)"
+                      (upload)="uploadEvent($event)" (cancel)="cancelEvent()" [disabled]="disabled" name="file">
         <mat-icon>file_upload</mat-icon>
-        <span>
-    {{ fileMultipleUpload.value?.name || fileMultipleUpload.value?.length }} <span
-          *ngIf="fileMultipleUpload.value?.length">wybrane pliki</span>
-  </span>
+        <span>{{ singleFileUpload.value?.name }}</span>
         <ng-template td-file-input-label>
           <mat-icon>attach_file</mat-icon>
           <span>
-      Wybierz pliki...
-    </span>
+      Wybierz plik
+        </span>
         </ng-template>
       </td-file-upload>
 
       <br>
-      <button class="float-md-right" mat-raised-button type="submit">Wyślij</button>
+      <button class="float-md-right" mat-raised-button type="submit" [disabled]="!isEncodingEnded">Wyślij</button>
     </form>
   </div>
 </div>

@@ -1,12 +1,10 @@
-﻿namespace Knowledge.Models.Responses
+﻿namespace Knowledge.Models.Dto
 {
     using System.Collections.Generic;
 
-    using Knowledge.Models.Dto;
-
-    public class SearchResponse
+    public class SearchResponseDto
     {
-        public SearchResponse(int currentPage, int itemsPerPage, IEnumerable<PostDto> posts)
+        public SearchResponseDto(int currentPage, int itemsPerPage, IEnumerable<PostDto> posts)
         {
             this.CurrentPage = currentPage;
             this.ItemsPerPage = itemsPerPage;

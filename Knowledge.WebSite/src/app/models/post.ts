@@ -1,13 +1,13 @@
-import {SchoolTypes} from './school-types.enum';
-import {MaterialTypes} from './material-type.enum';
+import {SchoolType} from './school-types.enum';
+import {MaterialType} from './material-type.enum';
 import {User} from './user';
 
 export class Post {
   id: number;
   title: string;
   description: string;
-  school: SchoolTypes;
-  materialType: MaterialTypes;
+  school: SchoolType;
+  materialType: MaterialType;
   thumbImagePath: string;
   filePath: string;
   points: number;

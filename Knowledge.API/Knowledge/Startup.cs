@@ -14,6 +14,7 @@ namespace Knowledge
 {
     using AutoMapper;
 
+    using Knowledge.Encryptors;
     using Knowledge.Repositories;
     using Knowledge.Services;
 
@@ -36,6 +37,8 @@ namespace Knowledge
             services.AddTransient<IPostService, PostService>();
 
             services.AddTransient<IPostRepository, InMemoryDataBase>();
+
+            services.AddTransient<EncryptedFile>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
