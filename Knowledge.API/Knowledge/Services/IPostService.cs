@@ -11,6 +11,6 @@
 
         Task<SearchResponseDto> SearchAsync(int currentPage, string query);
 
-        Task<int> GetNumberOfItemsInSearchQueryAsync(string query);
+        Task<long> GetNumberOfItemsInSearchQueryAsync(string query);
     }
 }

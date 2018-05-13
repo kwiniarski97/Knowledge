@@ -6,6 +6,7 @@
     using System.Threading.Tasks;
 
     using Knowledge.Models;
+    using Knowledge.Models.Domain;
 
     public class InMemoryDataBase : IPostRepository
     {
@@ -21,7 +22,6 @@
                                              "description placeholder longer than 30 characters",
                                          FilePath = "/",
                                          AddDateUtc = DateTime.UtcNow,
-                                         Id = 0,
                                          MaterialType = MaterialType.Kartkowka,
                                          NumberOfDownloads = 12,
                                          Title = "title longer than 5 characers",
@@ -44,7 +44,7 @@
             return this.SearchByQuery(query).Skip((currentPage - 1) * itemsPerPage).Take(itemsPerPage);
         }
 
-        public async Task<int> CountTotalItemsOfSearchQuery(string query)
+        public async Task<long> CountTotalItemsOfSearchQuery(string query)
         {
             return this.SearchByQuery(query).Count();
         }

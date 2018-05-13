@@ -10,6 +10,7 @@
     using Knowledge.Configs;
     using Knowledge.Encryptors;
     using Knowledge.Models;
+    using Knowledge.Models.Domain;
     using Knowledge.Models.Dto;
     using Knowledge.Repositories;
 
@@ -44,10 +45,10 @@
             var post = new Post(
                 addRequest.Title,
                 addRequest.Description,
-                filePath,
                 addRequest.School,
                 addRequest.MaterialType,
                 fileSnapshotImagePath,
+                filePath,
                 addRequest.UserNickname);
 
             await this.postRepository.AddAsync(post);
@@ -64,7 +65,7 @@
             return response;
         }
 
-        public async Task<int> GetNumberOfItemsInSearchQueryAsync(string query)
+        public async Task<long> GetNumberOfItemsInSearchQueryAsync(string query)
         {
             return await this.postRepository.CountTotalItemsOfSearchQuery(query);
         }

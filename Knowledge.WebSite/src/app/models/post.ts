@@ -12,6 +12,6 @@ export class Post {
   filePath: string;
   points: number;
   numberOfDownloads: number;
-  user: User;
+  userNickname: string;
   addDateUtc: string;
 }

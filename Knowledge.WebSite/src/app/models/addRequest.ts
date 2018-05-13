@@ -8,4 +8,5 @@ export class AddRequest {
   description: string;
   fileName: string;
   encodedFile: string;
+  userNickname:string;
 }

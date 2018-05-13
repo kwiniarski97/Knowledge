@@ -4,6 +4,7 @@
     using System.Threading.Tasks;
 
     using Knowledge.Models;
+    using Knowledge.Models.Domain;
 
     public interface IPostRepository
     {
@@ -11,6 +12,6 @@
 
         Task<IEnumerable<Post>> SearchAsync(string query, int currentPage, int itemsPerPage);
 
-        Task<int> CountTotalItemsOfSearchQuery(string query);
+        Task<long> CountTotalItemsOfSearchQuery(string query);
     }
 }

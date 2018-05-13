@@ -1,8 +1,11 @@
-﻿namespace Knowledge.Models
+﻿namespace Knowledge.Models.Domain
 {
     using System;
 
     using Knowledge.Resources;
+
+    using MongoDB.Bson;
+    using MongoDB.Bson.Serialization.Attributes;
 
     public class Post
     {
@@ -10,36 +13,37 @@
 
         private string description;
 
-        private string filePath;
-
         public Post(
             string title,
             string description,
-            string filePath,
             SchoolType school,
             MaterialType materialType,
             string thumbImagePath,
+            string filePath,
             string userNickname)
         {
             this.Title = title;
             this.Description = description;
-            this.FilePath = filePath;
             this.School = school;
             this.MaterialType = materialType;
             this.ThumbImagePath = thumbImagePath;
+            this.FilePath = filePath;
             this.UserNickname = userNickname;
+            this.GenerateSimplifiedTitle();
+            this.GenerateSearchTags();
         }
 
         public Post()
         {
         }
 
-        public long Id { get; set; }
+        [BsonId]
+        public ObjectId Id { get; set; }
 
         public string Title
         {
             get => this.title;
-            set
+             set
             {
                 if (string.IsNullOrWhiteSpace(value) || value.Length < 5)
                 {
@@ -49,6 +53,8 @@
                 this.title = value;
             }
         }
+
+        public string SimplifiedTitle { get; set; }
 
         public string Description
         {
@@ -63,6 +69,8 @@
                 this.description = value;
             }
         }
+
+        public string SearchTags { get; set; }
 
         public SchoolType School { get; set; }
 
@@ -79,5 +87,24 @@
         public string UserNickname { get; set; }
 
         public DateTime AddDateUtc { get; set; } = DateTime.UtcNow;
+
+        private void GenerateSimplifiedTitle()
+        {
+            var temp = this.Title.ToLower().Replace(" ", "_");
+            temp += DateTime.UtcNow.Ticks.ToString();
+            this.SimplifiedTitle = temp;
+        }
+
+        private void GenerateSearchTags()
+        {
+            this.SearchTags = string.Join(
+                ' ',
+                this.Title,
+                this.SimplifiedTitle,
+                this.UserNickname,
+                this.Description,
+                this.School.ToString(),
+                this.MaterialType.ToString());
+        }
     }
 }

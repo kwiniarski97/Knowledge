@@ -2,9 +2,11 @@
 {
     using System;
 
+    using MongoDB.Bson;
+
     public class PostDto
     {
-        public long Id { get; set; }
+        public ObjectId Id { get; set; }
 
         public string Title { get; set; }
 
