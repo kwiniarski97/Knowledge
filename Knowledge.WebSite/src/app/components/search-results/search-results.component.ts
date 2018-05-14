@@ -4,6 +4,7 @@ import {SchoolType} from '../../models/school-types.enum';
 import {MaterialType} from '../../models/material-type.enum';
 import {Post} from '../../models/post';
 import {PostService} from '../../services/post.service';
+import {Config} from '../../config';
 
 @Component({
   selector: 'app-search-results',
@@ -22,8 +23,11 @@ export class SearchResultsComponent implements OnInit {
 
   totalItems: number;
 
-  constructor(private route: ActivatedRoute, private postService: PostService) {
+  resourceServerPath: string;
 
+
+  constructor(private route: ActivatedRoute, private postService: PostService) {
+    this.resourceServerPath = Config.resourceServer;
   }
 
   ngOnInit() {
@@ -75,7 +79,7 @@ export class SearchResultsComponent implements OnInit {
 
   downloadFile(filePath: string) {
     // todo
-    window.open(filePath, '_blank');
+    window.open(this.resourceServerPath + filePath, '_blank');
   }
 
   getSchoolTypeName(school: SchoolType): string {

@@ -1,10 +1,9 @@
 import {Component, EventEmitter, OnInit} from '@angular/core';
 import {MaterialType} from '../../models/material-type.enum';
 import {SchoolType} from '../../models/school-types.enum';
-import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import {PostService} from '../../services/post.service';
 import {AddRequest} from '../../models/addRequest';
-import {async} from '@angular/core/testing';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-add',
@@ -19,15 +18,21 @@ export class AddComponent implements OnInit {
   file: File;
   isEncodingEnded = true;
 
-  constructor(private postService: PostService) {
+  constructor(private postService: PostService, private router: Router) {
   }
 
   ngOnInit() {
   }
 
   send(): void {
-    this.postService.add(this.model).subscribe();
-    console.log(this.model);
+    this.postService.add(this.model).subscribe(ok => {
+        alert('Pomyślnie dodano plik');
+        this.clearFiles();
+        this.router.navigate(['/']);
+      },
+      error => {
+        alert('Wystąpił błąd');
+      });
   }
 
   selectEvent(file: File): void {
@@ -35,19 +40,19 @@ export class AddComponent implements OnInit {
 
   }
 
-  uploadEvent(file: File): void {
-    this.model.fileName = file.name;
-    this.encodeFile(file);
+  uploadEvent(): void {
+    this.model.fileName = this.file.name;
+    this.encodeFile();
 
   }
 
   cancelEvent(): void {
-    this.file = null;
+    this.clearFiles();
   }
 
 
-  private encodeFile(file: File) {
-    this.encode(file).then(data => {
+  private encodeFile() {
+    this.encode(this.file).then(data => {
       this.model.encodedFile = (data as string); // removes header from base64 string
     });
 
@@ -72,4 +77,8 @@ export class AddComponent implements OnInit {
   }
 
 
+  private clearFiles() {
+    this.file = null;
+    this.model.encodedFile = null;
+  }
 }

@@ -1,48 +1,51 @@
-<div class="row d-flex ">
-  <mat-toolbar color="primary" class="toolbar">
-    <span class="ml-3">Dodawanie nowego materiału</span>
-  </mat-toolbar>
-  <div class="div-shadow div-rounded add-box col-xl-7 mx-auto text-center p-4 col-md-11">
-    <form #addForm (submit)="addForm.checkValidity() && send()">
+<div style="width: 99.3%; margin: 0 !important;">
+  <div class="row d-flex">
+    <mat-toolbar color="primary" class="toolbar">
+      <span class="ml-3">Dodawanie nowego materiału</span>
+    </mat-toolbar>
+    <div class="div-shadow div-rounded add-box col-xl-7 mx-auto text-center col-md-11">
+      <form #addForm (submit)="addForm.checkValidity() && send()">
+        <mat-form-field>
+          <input #title matInput name="title" ([ngModel])="post.title" placeholder="Tytuł" required minlength="5"
+                 [(ngModel)]="model.title">
+        </mat-form-field>
 
-      <mat-form-field>
-        <input #title matInput name="title" ([ngModel])="post.title" placeholder="Tytuł" required minlength="5"
-               [(ngModel)]="model.title">
-      </mat-form-field>
+        <mat-form-field>
+          <mat-select #school placeholder="Szkoła" name="school" [(ngModel)]="model.school" required>
+            <mat-option *ngFor="let school of schools | enumToArray" [value]="school">{{schools[school]}}</mat-option>
+          </mat-select>
+        </mat-form-field>
 
-      <mat-form-field>
-        <mat-select #school placeholder="Szkoła" name="school" [(ngModel)]="model.school" required>
-          <mat-option *ngFor="let school of schools | enumToArray" [value]="school">{{schools[school]}}</mat-option>
-        </mat-select>
-      </mat-form-field>
+        <mat-form-field>
+          <mat-select #type placeholder="Rodzaj" name="materialType" [(ngModel)]="model.materialType" required>
+            <mat-option *ngFor="let type of types | enumToArray" [value]="type">{{types[type]}}</mat-option>
+          </mat-select>
+        </mat-form-field>
 
-      <mat-form-field>
-        <mat-select #type placeholder="Rodzaj" name="materialType" [(ngModel)]="model.materialType" required>
-          <mat-option *ngFor="let type of types | enumToArray" [value]="type">{{types[type]}}</mat-option>
-        </mat-select>
-      </mat-form-field>
-
-      <mat-form-field hintLabel="Minimum 30 znaków.">
+        <mat-form-field hintLabel="Minimum 30 znaków.">
         <textarea #description matInput name="description" ([ngModel])="post.title" placeholder="Opis" required
                   minlength="30"
                   rows="12" [(ngModel)]="model.description"></textarea>
-        <mat-hint align="end">{{description.value?.length || 0}}</mat-hint>
-      </mat-form-field>
+          <mat-hint align="end">{{description.value?.length || 0}}</mat-hint>
+        </mat-form-field>
 
-      <td-file-upload #singleFileUpload [(ngModel)]="files" (select)="selectEvent($event)"
-                      (upload)="uploadEvent($event)" (cancel)="cancelEvent()" [disabled]="disabled" name="file">
-        <mat-icon>file_upload</mat-icon>
-        <span>{{ singleFileUpload.value?.name }}</span>
-        <ng-template td-file-input-label>
-          <mat-icon>attach_file</mat-icon>
-          <span>
+        <td-file-upload #singleFileUpload [(ngModel)]="files" (select)="selectEvent($event)"
+                        (upload)="uploadEvent($event)" (cancel)="cancelEvent()" [disabled]="disabled" name="file">
+          <mat-icon>file_upload</mat-icon>
+          <span>{{ singleFileUpload.value?.name }}</span>
+          <ng-template td-file-input-label>
+            <mat-icon>attach_file</mat-icon>
+            <span>
       Wybierz plik
         </span>
-        </ng-template>
-      </td-file-upload>
+          </ng-template>
+        </td-file-upload>
 
-      <br>
-      <button class="float-md-right" mat-raised-button type="submit" [disabled]="!isEncodingEnded">Wyślij</button>
-    </form>
+        <br>
+        <button class="float-md-right mb-3" mat-raised-button type="submit"
+                [disabled]="!isEncodingEnded||(!model.encodedFile&&file)">Wyślij
+        </button>
+      </form>
+    </div>
   </div>
 </div>

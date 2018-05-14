@@ -38,6 +38,7 @@
             {
                 var encryptedFile = new EncryptedFile(addRequest);
                 await encryptedFile.DecryptAndSaveFile();
+                await encryptedFile.GenerateAndSaveSnapshot();
                 filePath = encryptedFile.FilePath;
                 fileSnapshotImagePath = encryptedFile.SnapshotImagePath;
             }

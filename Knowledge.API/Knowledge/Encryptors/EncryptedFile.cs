@@ -37,19 +37,31 @@
         public async Task DecryptAndSaveFile()
         {
             var bytes = Convert.FromBase64String(this.Base64File);
-            var path = Path.Combine("wwwroot", "files", this.UserNickname, DateTime.UtcNow.Ticks.ToString());
             this.CancellationToken = new CancellationToken();
-            Directory.CreateDirectory(path);
-            this.FilePath = Path.Combine(path, this.FileName);
-            await File.WriteAllBytesAsync(this.FilePath, bytes, this.CancellationToken);
+            var ticks = DateTime.UtcNow.Ticks.ToString();
+            var path = Path.Combine("files", this.UserNickname, ticks);
+            Directory.CreateDirectory(Path.Combine("wwwroot", path)); // create directory 
+            this.FilePath = Path.Combine(path, this.FileName); // save file location on server
+            await File.WriteAllBytesAsync(Path.Combine("wwwroot", this.FilePath), bytes, this.CancellationToken);
         }
 
-        // public async Task GenerateAndSaveSnapshot()
-        // {
-        // switch (this.FileType)
-        // {
-        // case ""
-        // }
-        // }
+        public async Task GenerateAndSaveSnapshot()
+        {
+            switch (this.FileType)
+            {
+                case "data:image/jpeg;base64":
+                    {
+                        this.SnapshotImagePath = this.FilePath;
+                        break;
+                    }
+                case "data:application/pdf;base64":
+                    {
+                        // todo generate PDF image
+                        break;
+                    }
+
+
+            }
+        }
     }
 }
