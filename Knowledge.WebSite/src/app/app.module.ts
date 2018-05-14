@@ -26,6 +26,7 @@ import {EnumToArrayPipe} from './pipes/enum-to-array.pipe';
 import {SearchDialogComponent} from './components/menu/search-dialog/search-dialog.component';
 import {PostService} from './services/post.service';
 import {HttpClientModule} from '@angular/common/http';
+import { FooterComponent } from './components/footer/footer.component';
 
 
 @NgModule({
@@ -38,7 +39,8 @@ import {HttpClientModule} from '@angular/common/http';
     SearchResultsComponent,
     MenuComponent,
     EnumToArrayPipe,
-    SearchDialogComponent
+    SearchDialogComponent,
+    FooterComponent
 
   ],
   imports: [

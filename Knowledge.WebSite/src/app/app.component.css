@@ -1,0 +1,12 @@
+app-menu {
+  top: 0;
+  height: 100vh;
+}
+
+footer {
+  float: bottom;
+}
+
+.router {
+  min-height: calc(100vh - 126px);
+}

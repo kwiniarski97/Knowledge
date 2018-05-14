@@ -28,7 +28,7 @@
         }
 
         public async Task<IEnumerable<Post>> SearchAsync(string query, int currentPage, int itemsPerPage)
-        {
+     {
             var filter = Builders<Post>.Filter.Where(post => post.SearchTags.Contains(query));
             return await this.context.Posts.Find(filter).ToListAsync();
         }

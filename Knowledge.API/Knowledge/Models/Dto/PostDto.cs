@@ -24,7 +24,7 @@
 
         public uint NumberOfDownloads { get; set; }
 
-        public User User { get; set; }
+        public string UserNickname { get; set; }
 
         public DateTime AddDateUtc { get; set; }
     }
