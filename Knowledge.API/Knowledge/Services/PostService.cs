@@ -2,17 +2,17 @@
 {
     using System.Collections.Generic;
     using System.Linq;
-    using System.Threading;
     using System.Threading.Tasks;
 
     using AutoMapper;
 
-    using Knowledge.Configs;
     using Knowledge.Encryptors;
-    using Knowledge.Models;
+    using Knowledge.Extensions;
     using Knowledge.Models.Domain;
     using Knowledge.Models.Dto;
     using Knowledge.Repositories;
+
+    using MongoDB.Bson;
 
     public class PostService : IPostService
     {
@@ -38,14 +38,14 @@
             {
                 var encryptedFile = new EncryptedFile(addRequest);
                 await encryptedFile.DecryptAndSaveFile();
-                await encryptedFile.GenerateAndSaveSnapshot();
+                encryptedFile.GenerateAndSaveSnapshot();
                 filePath = encryptedFile.FilePath;
                 fileSnapshotImagePath = encryptedFile.SnapshotImagePath;
             }
 
             var post = new Post(
-                addRequest.Title,
-                addRequest.Description,
+                addRequest.Title.ToLower().RemoveDiacritics(),
+                addRequest.Description.ToLower().RemoveDiacritics(),
                 addRequest.School,
                 addRequest.MaterialType,
                 fileSnapshotImagePath,
@@ -58,6 +58,7 @@
         // todo refractor
         public async Task<SearchResponseDto> SearchAsync(int currentPage, string query)
         {
+            query = query.RemoveDiacritics().ToLower();
             var results = await this.postRepository.SearchAsync(query, currentPage, ItemsPerPage);
             var posts = this.mapper.Map<IEnumerable<PostDto>>(results).ToArray();
 
@@ -69,6 +70,13 @@
         public async Task<long> GetNumberOfItemsInSearchQueryAsync(string query)
         {
             return await this.postRepository.CountTotalItemsOfSearchQuery(query);
+        }
+
+        public async Task<PostDto> GetPostByIdAsync(string id)
+        {
+            var post = await this.postRepository.GetPostByIdAsync(id);
+            var postDto = this.mapper.Map<PostDto>(post);
+            return postDto;
         }
     }
 }

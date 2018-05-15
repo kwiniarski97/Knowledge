@@ -4,7 +4,7 @@
       <span class="ml-3">Dodawanie nowego materiału</span>
     </mat-toolbar>
     <div class="div-shadow div-rounded add-box col-xl-7 mx-auto text-center col-md-11">
-      <form #addForm (submit)="addForm.checkValidity() && send()">
+      <form #addForm (submit)="addForm.checkValidity() && send()" class="mt-3">
         <mat-form-field>
           <input #title matInput name="title" ([ngModel])="post.title" placeholder="Tytuł" required minlength="5"
                  [(ngModel)]="model.title">
@@ -30,7 +30,8 @@
         </mat-form-field>
 
         <td-file-upload #singleFileUpload [(ngModel)]="files" (select)="selectEvent($event)"
-                        (upload)="uploadEvent($event)" (cancel)="cancelEvent()" [disabled]="disabled" name="file">
+                        (upload)="uploadEvent($event)" (cancel)="cancelEvent()" [disabled]="disabled" name="file"
+                        accept=".doc, .docx, .pdf, .img, .jpg, .png, .txt">
           <mat-icon>file_upload</mat-icon>
           <span>{{ singleFileUpload.value?.name }}</span>
           <ng-template td-file-input-label>

@@ -8,6 +8,8 @@
 
     using Microsoft.AspNetCore.Mvc;
 
+    using MongoDB.Bson;
+
     [Produces("application/json")]
     [Route("api/Post")]
     public class PostController : Controller
@@ -34,12 +36,17 @@
         }
 
         [HttpGet("count/{query}")]
-        public async Task<IActionResult> GetNumberOfPostsInQuery(string query)
+        public async Task<IActionResult> GetNumberOfPostsInQueryAsync(string query)
         {
             var number = await this.postService.GetNumberOfItemsInSearchQueryAsync(query);
             return this.Ok(value: number);
         }
 
- 
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetPostByIdAsync(string id)
+        {
+            var post = await this.postService.GetPostByIdAsync(id);
+            return this.Ok(post);
+        }
     }
 }

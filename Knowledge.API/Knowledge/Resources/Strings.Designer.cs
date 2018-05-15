@@ -79,6 +79,15 @@ namespace Knowledge.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Rozmiar pliku może mieć maksymalnie 10MB.
+        /// </summary>
+        public static string fizeSizeIsTooBig {
+            get {
+                return ResourceManager.GetString("fizeSizeIsTooBig", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Tytuł musi mieć conajmniej 5 znaków..
         /// </summary>
         public static string titleTooShortMessage {

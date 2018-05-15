@@ -8,6 +8,8 @@
     using Knowledge.Models;
     using Knowledge.Models.Domain;
 
+    using MongoDB.Bson;
+
     public class InMemoryDataBase : IPostRepository
     {
         private List<Post> posts;
@@ -47,6 +49,11 @@
         public async Task<long> CountTotalItemsOfSearchQuery(string query)
         {
             return this.SearchByQuery(query).Count();
+        }
+
+        public async Task<Post> GetPostByIdAsync(string id)
+        {
+            throw new NotImplementedException();
         }
 
         private IEnumerable<Post> SearchByQuery(string query)

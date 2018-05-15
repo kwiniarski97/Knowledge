@@ -2,7 +2,6 @@
 {
     using AutoMapper;
 
-    using Knowledge.Models;
     using Knowledge.Models.Domain;
     using Knowledge.Models.Dto;
 

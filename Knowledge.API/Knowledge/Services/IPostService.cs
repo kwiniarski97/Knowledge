@@ -1,9 +1,10 @@
 ﻿namespace Knowledge.Services
 {
-    using System.Collections.Generic;
     using System.Threading.Tasks;
 
     using Knowledge.Models.Dto;
+
+    using MongoDB.Bson;
 
     public interface IPostService
     {
@@ -12,5 +13,7 @@
         Task<SearchResponseDto> SearchAsync(int currentPage, string query);
 
         Task<long> GetNumberOfItemsInSearchQueryAsync(string query);
+
+        Task<PostDto> GetPostByIdAsync(string id);
     }
 }

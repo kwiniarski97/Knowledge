@@ -2,6 +2,7 @@
 {
     using System;
 
+    using Knowledge.Extensions;
     using Knowledge.Resources;
 
     using MongoDB.Bson;
@@ -38,12 +39,13 @@
         }
 
         [BsonId]
-        public ObjectId Id { get; set; }
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string Id { get; set; }
 
         public string Title
         {
             get => this.title;
-             set
+            set
             {
                 if (string.IsNullOrWhiteSpace(value) || value.Length < 5)
                 {
@@ -90,7 +92,7 @@
 
         private void GenerateSimplifiedTitle()
         {
-            var temp = this.Title.ToLower().Replace(" ", "_");
+            var temp = this.Title.ToLower().RemoveDiacritics().Replace(" ", "_");
             temp += DateTime.UtcNow.Ticks.ToString();
             this.SimplifiedTitle = temp;
         }
@@ -99,12 +101,12 @@
         {
             this.SearchTags = string.Join(
                 ' ',
-                this.Title,
+                this.Title.RemoveDiacritics().ToLower(),
                 this.SimplifiedTitle,
                 this.UserNickname,
-                this.Description,
-                this.School.ToString(),
-                this.MaterialType.ToString());
+                this.Description.RemoveDiacritics().ToLower(),
+                this.School.ToString().ToLower(),
+                this.MaterialType.ToString().ToLower());
         }
     }
 }

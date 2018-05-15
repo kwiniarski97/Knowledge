@@ -125,6 +125,10 @@
     <value>Wystąpił bład podczas dodawania pliku.</value>
     <comment>Exception</comment>
   </data>
+  <data name="fizeSizeIsTooBig" xml:space="preserve">
+    <value>Rozmiar pliku może mieć maksymalnie 10MB</value>
+    <comment>Exception</comment>
+  </data>
   <data name="titleTooShortMessage" xml:space="preserve">
     <value>Tytuł musi mieć conajmniej 5 znaków.</value>
     <comment>Exception</comment>
