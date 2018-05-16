@@ -3,16 +3,16 @@
     Wyszukiwarka
   </mat-toolbar>
   <div class="col-xl-8">
-    <mat-card *ngFor="let post of posts">
+    <mat-card *ngFor="let post of posts" style="height: 450px">
       <mat-card-title>{{post.title}}</mat-card-title>
       <mat-card-subtitle><b>{{getSchoolTypeName(post.school)}} | {{getMaterialTypeName(post.materialType)}}</b>
         <i style="float: right;">{{post.userNickname}} | {{getShortDate(post.addDateUtc)}}</i>
       </mat-card-subtitle>
       <mat-card-content>
-        <div class="d-flex">
-          <img class="col-4 overflow-hidden" style="object-fit:scale-down; height: 100%;"
+        <div class="d-flex" >
+          <img *ngIf="post.filePath" class="col-4 overflow-hidden" style="object-fit:scale-down; height: 100%;"
                [src]="resourceServerPath + post.thumbImagePath">
-          <div class="overflow-hidden col-8" style="width: 100%;">{{post.description}}</div>
+          <div class="ml-3 mr-3" style="word-wrap: break-word; white-space: normal!important; overflow: hidden; height: 210px;">{{post.description}}</div>
         </div>
       </mat-card-content>
       <mat-card-actions>
