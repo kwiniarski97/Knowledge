@@ -1,5 +1,5 @@
-import {SchoolType} from './school-types.enum';
-import {MaterialType} from './material-type.enum';
+import {SchoolType} from '../school-types.enum';
+import {MaterialType} from '../material-type.enum';
 
 export class AddRequest {
   title: string;
@@ -8,5 +8,5 @@ export class AddRequest {
   description: string;
   fileName: string;
   encodedFile: string;
-  userNickname:string;
+  userNickname: string;
 }

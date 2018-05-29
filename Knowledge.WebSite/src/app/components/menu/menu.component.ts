@@ -1,8 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {MatDialog} from '@angular/material';
+import {MatDialog, MatDialogConfig} from '@angular/material';
 import {SearchDialogComponent} from './search-dialog/search-dialog.component';
 import {SearchboxComponent} from '../searchbox/searchbox.component';
 import {Router} from '@angular/router';
+import {LoginDialogComponent} from './login-dialog/login-dialog.component';
 
 @Component({
   selector: 'app-menu',
@@ -41,5 +42,14 @@ export class MenuComponent implements OnInit {
   search(query: string) {
     const searchBoxComponent = new SearchboxComponent(this.router);
     searchBoxComponent.search(query);
+  }
+
+  openLoginBox() {
+
+
+    this.dialog.open(LoginDialogComponent, {
+      maxWidth: '60vw',
+      minWidth: '30vw'
+    });
   }
 }

@@ -7,6 +7,7 @@
         <button *ngFor="let route of routes" mat-button [routerLink]="route.path" class="menu-entry ml-3 mr-3">
           {{route.name}}
         </button>
+        <button mat-button (click)="openLoginBox()" class="menu-entry ml-3 mr-3">Zaloguj się</button>
       </div>
     </div>
 
@@ -19,6 +20,7 @@
         {{route.name}}
       </div>
       <div class="mobile-menu-entry" (click)="openSearchBox()">Szukaj</div>
+      <div (click)="openLoginBox()" class="mobile-menu-entry">Zaloguj się</div>
     </div>
 
     <div class="d-none d-sm-none d-md-inline mr-1 col-4">
@@ -31,6 +33,7 @@
       <button mat-button (click)="openSearchBox()" class="d-xl-none d-sm-none d-md-inline d-none float-right">Szukaj
       </button>
     </div>
+
   </div>
 
   <!--fix to overlapping-->

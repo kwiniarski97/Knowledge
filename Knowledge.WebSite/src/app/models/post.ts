@@ -13,5 +13,6 @@ export class Post {
   points: number;
   numberOfDownloads: number;
   userNickname: string;
+  simplifiedTitle: string;
   addDateUtc: string;
 }

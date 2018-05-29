@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {SchoolType} from '../../models/school-types.enum';
 import {MaterialType} from '../../models/material-type.enum';
 import {Post} from '../../models/post';
@@ -26,7 +26,7 @@ export class SearchResultsComponent implements OnInit {
   resourceServerPath: string;
 
 
-  constructor(private route: ActivatedRoute, private postService: PostService) {
+  constructor(private route: ActivatedRoute, private postService: PostService, private router: Router) {
     this.resourceServerPath = Config.resourceServer;
   }
 
@@ -92,5 +92,9 @@ export class SearchResultsComponent implements OnInit {
 
   getShortDate(addDateUtc: string) {
     return new Date(addDateUtc).toLocaleDateString();
+  }
+
+  goToDetails(post: Post) {
+    this.router.navigate([`post/${post.id}`]);
   }
 }

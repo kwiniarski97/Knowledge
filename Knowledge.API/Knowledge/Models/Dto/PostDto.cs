@@ -26,6 +26,8 @@
 
         public string UserNickname { get; set; }
 
+        public string SimplifiedTitle { get; set; }
+
         public DateTime AddDateUtc { get; set; }
     }
 }

@@ -2,7 +2,7 @@ import {Component, EventEmitter, OnInit} from '@angular/core';
 import {MaterialType} from '../../models/material-type.enum';
 import {SchoolType} from '../../models/school-types.enum';
 import {PostService} from '../../services/post.service';
-import {AddRequest} from '../../models/addRequest';
+import {AddRequest} from '../../models/requests/addRequest';
 import {Router} from '@angular/router';
 
 @Component({

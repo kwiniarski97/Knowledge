@@ -1,0 +1,39 @@
+<mat-tab-group>
+  <mat-tab label="Zaloguj się">
+    <div class="col-12">
+      <form #loginForm (submit)="loginForm.checkValidity() && login()" class="m-2" method="post">
+        <mat-form-field style="width: 100%;">
+          <input matInput [(ngModel)]="loginDto.nickname" name="login" placeholder="Login">
+        </mat-form-field>
+        <mat-form-field style="width: 100%;">
+          <input matInput [(ngModel)]="loginDto.password" name="password" placeholder="Hasło" type="password">
+        </mat-form-field>
+        <button type="submit" mat-raised-button>Zaloguj</button>
+      </form>
+    </div>
+  </mat-tab>
+  <mat-tab label="Załóż konto">
+    <div class="col-12">
+      <form #registerForm (submit)="registerForm.checkValidity() && agreedToRules && register()" class="m-2"
+            method="post">
+        <mat-form-field style="width: 100%;">
+          <input matInput [(ngModel)]="registerDto.nickname" name="login" placeholder="Login">
+        </mat-form-field>
+        <mat-form-field style="width: 100%;">
+          <input matInput [(ngModel)]="registerDto.email" name="email" placeholder="E-Mail">
+        </mat-form-field>
+        <mat-form-field style="width: 100%;">
+          <input matInput [(ngModel)]="registerDto.password" name="password" placeholder="Hasło" type="password">
+        </mat-form-field>
+        <button type="submit" mat-raised-button>Zarejestruj się</button>
+        <div class="m-2">
+          <mat-checkbox [(ngModel)]="agreedToRules" name="rules">
+          </mat-checkbox>
+          <label style="word-wrap:break-word;">Zgadzam się z <a href="tutajbedzieregulamin">regulaminem</a>,
+            oraz <a href="polityka prywatnosci">polityką prywatności</a>
+          </label>
+        </div>
+      </form>
+    </div>
+  </mat-tab>
+</mat-tab-group>

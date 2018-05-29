@@ -10,23 +10,26 @@ import {AddComponent} from './components/add/add.component';
 import {NotFoundComponent} from './components/not-found/not-found.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {
-  MatButtonModule, MatCardModule,
+  MatButtonModule, MatCardModule, MatCheckboxModule,
   MatDialogModule,
   MatIconModule,
   MatInputModule,
   MatMenuModule,
-  MatSelectModule,
+  MatSelectModule, MatTabsModule,
   MatToolbarModule
 } from '@angular/material';
 import {SearchResultsComponent} from './components/search-results/search-results.component';
 import {CovalentFileModule, CovalentLayoutModule, CovalentStepsModule} from '@covalent/core';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MenuComponent} from './components/menu/menu.component';
 import {EnumToArrayPipe} from './pipes/enum-to-array.pipe';
 import {SearchDialogComponent} from './components/menu/search-dialog/search-dialog.component';
 import {PostService} from './services/post.service';
 import {HttpClientModule} from '@angular/common/http';
 import { FooterComponent } from './components/footer/footer.component';
+import { PostDetailsComponent } from './components/post-details/post-details.component';
+import { LoginDialogComponent } from './components/menu/login-dialog/login-dialog.component';
+import {AuthService} from './services/auth.service';
 
 
 @NgModule({
@@ -40,12 +43,15 @@ import { FooterComponent } from './components/footer/footer.component';
     MenuComponent,
     EnumToArrayPipe,
     SearchDialogComponent,
-    FooterComponent
+    FooterComponent,
+    PostDetailsComponent,
+    LoginDialogComponent,
 
   ],
   imports: [
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
     MatInputModule,
@@ -54,21 +60,24 @@ import { FooterComponent } from './components/footer/footer.component';
     CovalentStepsModule,
     CovalentFileModule,
     MatIconModule,
+    MatCheckboxModule,
     MatMenuModule,
     MatToolbarModule,
     MatSelectModule,
     MatDialogModule,
     MatCardModule,
+    MatTabsModule,
     RouterModule.forRoot([
       {path: '', component: HomeComponent, pathMatch: 'full'},
       {path: 'add', component: AddComponent},
       {path: 'search/:page/:query', component: SearchResultsComponent},
+      {path: 'post/:id', component: PostDetailsComponent},
       {path: '**', component: NotFoundComponent},
     ])
   ],
-  providers: [PostService],
+  providers: [PostService, AuthService],
   bootstrap: [AppComponent],
-  entryComponents: [SearchDialogComponent]
+  entryComponents: [SearchDialogComponent, LoginDialogComponent]
 })
 export class AppModule {
 }
