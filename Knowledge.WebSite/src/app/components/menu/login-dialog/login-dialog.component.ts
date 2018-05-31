@@ -4,6 +4,8 @@ import {MatDialogRef} from '@angular/material';
 import {AuthService} from '../../../services/auth.service';
 import {LoginDto} from '../../../models/requests/loginDto';
 import {RegisterDto} from '../../../models/requests/registerDto';
+import { JwtService } from '../../../services/jwt.service';
+import { Jwt } from '../../../models/jwt';
 
 @Component({
   selector: 'app-login-dialog',
@@ -16,7 +18,8 @@ export class LoginDialogComponent implements OnInit {
   registerDto: RegisterDto = new RegisterDto();
   agreedToRules: boolean;
 
-  constructor(private router: Router, public dialogRef: MatDialogRef<LoginDialogComponent>, private authService: AuthService) {
+  constructor(private router: Router, public dialogRef: MatDialogRef<LoginDialogComponent>,
+    private authService: AuthService, , private jwtService: JwtService) {
     router.events.subscribe(event => {
       if (event) {
         dialogRef.close();
@@ -29,7 +32,8 @@ export class LoginDialogComponent implements OnInit {
 
   login() {
     this.authService.login(this.loginDto).subscribe(ok => {
-        // todo store jwt somewhere
+        const jwt = ok as Jwt;
+        this.jwtService.setJwt(jwt);
       },
       err => {
         alert(err);
@@ -38,7 +42,7 @@ export class LoginDialogComponent implements OnInit {
 
   register() {
     this.authService.register(this.registerDto).subscribe(ok => {
-      alert('Sprawdź swój email.');
+      alert('Na twój email wysłaliśmy link aktywacyjny.');
     }, err => {
       alert('Wystąpił błąd');
     });

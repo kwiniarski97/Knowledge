@@ -1,14 +1,14 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Config} from '../config';
 import {Observable} from 'rxjs/Observable';
 import {AddRequest} from '../models/requests/addRequest';
 import {PostDetails} from '../models/post-details';
+import { enviroment } from '../enviroment';
 
 @Injectable()
 export class PostService {
 
-  private routeApiUrl = Config.apiUrl + 'post/';
+  private routeApiUrl = enviroment.apiUrl + 'post/';
 
   constructor(private http: HttpClient) {
   }

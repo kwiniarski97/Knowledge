@@ -4,7 +4,7 @@ import {SchoolType} from '../../models/school-types.enum';
 import {MaterialType} from '../../models/material-type.enum';
 import {Post} from '../../models/post';
 import {PostService} from '../../services/post.service';
-import {Config} from '../../config';
+import { enviroment } from '../../enviroment';
 
 @Component({
   selector: 'app-search-results',
@@ -27,7 +27,7 @@ export class SearchResultsComponent implements OnInit {
 
 
   constructor(private route: ActivatedRoute, private postService: PostService, private router: Router) {
-    this.resourceServerPath = Config.resourceServer;
+    this.resourceServerPath = enviroment.apiUrl;
   }
 
   ngOnInit() {
@@ -38,7 +38,7 @@ export class SearchResultsComponent implements OnInit {
     this.postService.search(this.query, this.currentPage).subscribe(response => {
       this.currentPage = response['currentPage'];
       this.posts = response['posts'];
-      //todo zbinduj reszte propów
+      // todo zbinduj reszte propów
     }, err => {
       console.log(err);
     });
