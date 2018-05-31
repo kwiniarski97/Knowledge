@@ -305,3 +305,4 @@ testem.log
 Thumbs.db
 
 **/wwwroot/files
+Knowledge.API/Knowledge/appsettings.json
