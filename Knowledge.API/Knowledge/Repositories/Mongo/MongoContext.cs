@@ -1,11 +1,10 @@
 ﻿namespace Knowledge.Repositories.Mongo
 {
-    using Knowledge.Models;
     using Knowledge.Models.Domain;
+    using Knowledge.Settings;
 
     using Microsoft.Extensions.Options;
 
-    using MongoDB.Bson;
     using MongoDB.Driver;
 
     public class MongoContext
@@ -19,5 +18,7 @@
         }
 
         public IMongoCollection<Post> Posts => this.database.GetCollection<Post>("Posts");
+
+        public IMongoCollection<User> Users => this.database.GetCollection<User>("Users");
     }
 }

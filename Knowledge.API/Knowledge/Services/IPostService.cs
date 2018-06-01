@@ -4,8 +4,6 @@
 
     using Knowledge.Models.Dto;
 
-    using MongoDB.Bson;
-
     public interface IPostService
     {
         Task AddPostAsync(AddRequestDto addRequest);

@@ -1,10 +1,9 @@
-import { Injectable } from '@angular/core';
-import { LoginDto } from '../models/requests/loginDto';
-import { Observable } from 'rxjs/Observable';
-import { HttpClient } from '@angular/common/http';
-import { RegisterDto } from '../models/requests/registerDto';
-import { enviroment } from '../enviroment';
-import { JwtService } from './jwt.service';
+import {Injectable} from '@angular/core';
+import {LoginDto} from '../models/requests/loginDto';
+import {Observable} from 'rxjs/Observable';
+import {HttpClient} from '@angular/common/http';
+import {RegisterDto} from '../models/requests/registerDto';
+import {enviroment} from '../enviroment';
 
 @Injectable()
 export class AuthService {
@@ -20,5 +19,10 @@ export class AuthService {
 
   register(registerDto: RegisterDto): Observable<any> {
     return this.http.post(this.apiUrl + 'register', registerDto);
+  }
+
+  isLogged(): boolean {
+    const jwt = localStorage.getItem('jwt');
+    return !!jwt; // just js things
   }
 }

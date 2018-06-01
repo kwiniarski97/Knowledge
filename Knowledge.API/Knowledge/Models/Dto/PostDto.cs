@@ -2,8 +2,6 @@
 {
     using System;
 
-    using MongoDB.Bson;
-
     public class PostDto
     {
         public string Id { get; set; }

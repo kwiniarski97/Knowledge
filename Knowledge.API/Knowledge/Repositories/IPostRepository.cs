@@ -3,10 +3,7 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
-    using Knowledge.Models;
     using Knowledge.Models.Domain;
-
-    using MongoDB.Bson;
 
     public interface IPostRepository
     {

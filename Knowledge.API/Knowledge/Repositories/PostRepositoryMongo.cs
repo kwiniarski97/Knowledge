@@ -1,16 +1,14 @@
 ﻿namespace Knowledge.Repositories
 {
     using System.Collections.Generic;
-    using System.Runtime.InteropServices;
-    using System.Text;
     using System.Threading.Tasks;
 
     using Knowledge.Models.Domain;
     using Knowledge.Repositories.Mongo;
+    using Knowledge.Settings;
 
     using Microsoft.Extensions.Options;
 
-    using MongoDB.Bson;
     using MongoDB.Driver;
 
     public class PostRepositoryMongo : IPostRepository

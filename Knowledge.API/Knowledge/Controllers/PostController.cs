@@ -1,14 +1,11 @@
 ﻿namespace Knowledge.Controllers
 {
-    using System;
     using System.Threading.Tasks;
 
     using Knowledge.Models.Dto;
     using Knowledge.Services;
 
     using Microsoft.AspNetCore.Mvc;
-
-    using MongoDB.Bson;
 
     [Produces("application/json")]
     [Route("api/Post")]

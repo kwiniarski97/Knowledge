@@ -8,8 +8,6 @@
     using Knowledge.Models;
     using Knowledge.Models.Domain;
 
-    using MongoDB.Bson;
-
     public class InMemoryDataBase : IPostRepository
     {
         private List<Post> posts;

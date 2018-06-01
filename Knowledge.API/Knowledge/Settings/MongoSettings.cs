@@ -1,4 +1,4 @@
-﻿namespace Knowledge.Repositories.Mongo
+﻿namespace Knowledge.Settings
 {
     public class MongoSettings
     {

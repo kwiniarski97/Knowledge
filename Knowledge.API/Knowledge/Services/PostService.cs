@@ -12,8 +12,6 @@
     using Knowledge.Models.Dto;
     using Knowledge.Repositories;
 
-    using MongoDB.Bson;
-
     public class PostService : IPostService
     {
         private const int ItemsPerPage = 20;
