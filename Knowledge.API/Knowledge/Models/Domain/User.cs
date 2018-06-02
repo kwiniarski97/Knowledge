@@ -14,6 +14,15 @@
         User
     }
 
+    public enum UserStatus
+    {
+        NotActivated,
+
+        Activated,
+
+        Banned
+    }
+
     public class User
     {
         [BsonId]
@@ -29,6 +38,8 @@
         public long? FacebookId { get; set; }
 
         public UserRole Role { get; set; } = UserRole.User;
+
+        public UserStatus Status { get; set; } = UserStatus.NotActivated;
 
         public byte[] PasswordHash { get; set; }
 

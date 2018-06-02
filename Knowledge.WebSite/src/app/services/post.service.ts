@@ -1,20 +1,21 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpClientJsonpModule} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 import {AddRequest} from '../models/requests/addRequest';
 import {PostDetails} from '../models/post-details';
 import { enviroment } from '../enviroment';
+import { HttpClientJwtModule } from '../modules/http-client-jwt/http-client-jwt.module';
 
 @Injectable()
 export class PostService {
 
   private routeApiUrl = enviroment.apiUrl + 'post/';
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private httpJwt: HttpClientJwtModule) {
   }
 
   add(request: AddRequest): Observable<any> {
-    return this.http.post(this.routeApiUrl + 'add', request);
+    return this.httpJwt.post(this.routeApiUrl + 'add', request);
   }
 
   search(query: string, currentPage: number): Observable<any> {

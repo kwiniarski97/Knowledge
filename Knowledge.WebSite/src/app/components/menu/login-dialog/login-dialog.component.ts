@@ -31,6 +31,7 @@ export class LoginDialogComponent implements OnInit {
   login() {
     this.authService.login(this.loginDto).subscribe(ok => {
         localStorage.setItem('jwt', ok);
+        this.dialogRef.close();
       },
       err => {
         alert(err);

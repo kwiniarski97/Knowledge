@@ -8,13 +8,13 @@ import {enviroment} from '../enviroment';
 @Injectable()
 export class AuthService {
 
-  private apiUrl = enviroment.apiUrl + '/auth/';
+  private apiUrl = enviroment.apiUrl + 'auth/';
 
   constructor(private http: HttpClient) {
   }
 
   login(loginDto: LoginDto): Observable<any> {
-    return this.http.post(this.apiUrl + 'login', loginDto);
+    return this.http.post(this.apiUrl + 'login', loginDto, {responseType: 'text'});
   }
 
   register(registerDto: RegisterDto): Observable<any> {

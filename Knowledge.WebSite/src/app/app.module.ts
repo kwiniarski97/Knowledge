@@ -30,6 +30,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { PostDetailsComponent } from './components/post-details/post-details.component';
 import { LoginDialogComponent } from './components/menu/login-dialog/login-dialog.component';
 import { AuthService } from './services/auth.service';
+import { HttpClientJwtModule } from './modules/http-client-jwt/http-client-jwt.module';
 
 
 @NgModule({
@@ -53,6 +54,7 @@ import { AuthService } from './services/auth.service';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    HttpClientJwtModule,
     BrowserAnimationsModule,
     MatInputModule,
     MatButtonModule,
