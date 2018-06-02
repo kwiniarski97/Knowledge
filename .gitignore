@@ -306,3 +306,5 @@ Thumbs.db
 
 **/wwwroot/files
 Knowledge.API/Knowledge/appsettings.json
+
+appsettings.json
