@@ -1,6 +1,7 @@
 ﻿namespace Knowledge
 {
     using System;
+    using System.Security.Claims;
     using System.Text;
 
     using AutoMapper;
@@ -74,6 +75,10 @@
                                                                     ClockSkew = TimeSpan.Zero
                                                                 };
                     });
+
+            services.AddAuthorization(options => options.AddPolicy(
+                "Active",
+                policy => { policy.RequireClaim("Status", "Active"); }));
 
             services.AddMvc();
         }

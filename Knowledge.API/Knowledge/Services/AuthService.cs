@@ -97,17 +97,19 @@
             var key = Encoding.ASCII.GetBytes(this.jwtSettings.Key);
             var tokenDescriptor = new SecurityTokenDescriptor
                                       {
-                                          Subject =
-                                              new ClaimsIdentity(
-                                                  new[]
-                                                      {
-                                                          new Claim(
-                                                              JwtRegisteredClaimNames.Sub,
-                                                              user.Nickname),
-                                                          new Claim(
-                                                              ClaimTypes.Role,
-                                                              user.Role.ToString())
-                                                      }),
+                                          Subject = new ClaimsIdentity(
+                                              new[]
+                                                  {
+                                                      new Claim(
+                                                          JwtRegisteredClaimNames.Sub,
+                                                          user.Nickname),
+                                                      new Claim(
+                                                          ClaimTypes.Role,
+                                                          user.Role.ToString()),
+                                                      new Claim(
+                                                          "Status",
+                                                          user.Status.ToString()),
+                                                  }),
                                           Expires = DateTime.UtcNow.AddHours(1),
                                           SigningCredentials = new SigningCredentials(
                                               new SymmetricSecurityKey(key),

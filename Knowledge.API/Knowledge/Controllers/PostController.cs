@@ -5,6 +5,7 @@
     using Knowledge.Models.Dto;
     using Knowledge.Services;
 
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
     [Produces("application/json")]
@@ -18,6 +19,7 @@
             this.postService = postService;
         }
 
+        [Authorize("Active")]
         [HttpPost("add")]
         public async Task<IActionResult> AddAsync([FromBody] AddRequestDto addRequest)
         {
