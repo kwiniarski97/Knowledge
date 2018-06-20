@@ -25,16 +25,24 @@ import { MenuComponent } from './components/menu/menu.component';
 import { EnumToArrayPipe } from './pipes/enum-to-array.pipe';
 import { SearchDialogComponent } from './components/menu/search-dialog/search-dialog.component';
 import { PostService } from './services/post.service';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { FooterComponent } from './components/footer/footer.component';
 import { PostDetailsComponent } from './components/post-details/post-details.component';
 import { LoginDialogComponent } from './components/menu/login-dialog/login-dialog.component';
 import { AuthService } from './services/auth.service';
 import { HttpClientJwtModule } from './modules/http-client-jwt/http-client-jwt.module';
+import { TranslateModule, TranslateLoader, TranslatePipe, TranslateService } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+}
 
 @NgModule({
   declarations: [
+    AppComponent,
+    HomeComponent,
+    SearchboxComponent,
     AppComponent,
     HomeComponent,
     SearchboxComponent,
@@ -47,7 +55,6 @@ import { HttpClientJwtModule } from './modules/http-client-jwt/http-client-jwt.m
     FooterComponent,
     PostDetailsComponent,
     LoginDialogComponent,
-
   ],
   imports: [
     BrowserModule,
@@ -69,6 +76,13 @@ import { HttpClientJwtModule } from './modules/http-client-jwt/http-client-jwt.m
     MatDialogModule,
     MatCardModule,
     MatTabsModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    }),
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'add', component: AddComponent },
@@ -82,4 +96,9 @@ import { HttpClientJwtModule } from './modules/http-client-jwt/http-client-jwt.m
   entryComponents: [SearchDialogComponent, LoginDialogComponent]
 })
 export class AppModule {
+
+  constructor(private translateService: TranslateService) {
+    translateService.setDefaultLang('en');
+    translateService.use('pl');
+  }
 }
