@@ -1,6 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, LOCALE_ID } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import {  registerLocaleData } from '@angular/common';
+import localePl from '@angular/common/locales/pl';
 
 
 import { AppComponent } from './app.component';
@@ -27,16 +29,19 @@ import { SearchDialogComponent } from './components/menu/search-dialog/search-di
 import { PostService } from './services/post.service';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { FooterComponent } from './components/footer/footer.component';
-import { PostDetailsComponent } from './components/post-details/post-details.component';
 import { LoginDialogComponent } from './components/menu/login-dialog/login-dialog.component';
 import { AuthService } from './services/auth.service';
 import { HttpClientJwtModule } from './modules/http-client-jwt/http-client-jwt.module';
 import { TranslateModule, TranslateLoader, TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { PostDetailsComponent } from './components/search-results/post-details/post-details.component';
+import { SchoolnamePipe } from './pipes/schoolname.pipe';
+import { DisqusModule } from 'ngx-disqus';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
+
 
 @NgModule({
   declarations: [
@@ -51,6 +56,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     SearchResultsComponent,
     MenuComponent,
     EnumToArrayPipe,
+    SchoolnamePipe,
     SearchDialogComponent,
     FooterComponent,
     PostDetailsComponent,
@@ -76,6 +82,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatDialogModule,
     MatCardModule,
     MatTabsModule,
+    DisqusModule.forRoot('gotowiec'),
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -91,14 +98,19 @@ export function HttpLoaderFactory(http: HttpClient) {
       { path: '**', component: NotFoundComponent },
     ])
   ],
-  providers: [PostService, AuthService],
+  providers: [
+    { provide: LOCALE_ID, useValue: 'pl' },
+    PostService,
+    AuthService
+  ],
   bootstrap: [AppComponent],
   entryComponents: [SearchDialogComponent, LoginDialogComponent]
 })
 export class AppModule {
 
   constructor(private translateService: TranslateService) {
-    translateService.setDefaultLang('en');
+    registerLocaleData(localePl, 'pl');
+    translateService.setDefaultLang('pl');
     translateService.use('pl');
   }
 }

@@ -3,31 +3,37 @@
     Wyszukiwarka
   </mat-toolbar>
   <div class="col-xl-8">
-    <mat-card *ngFor="let post of posts" style="height: 450px; cursor: pointer;" (click)="goToDetails(post)">
-      <mat-card-title>{{post.title}}</mat-card-title>
-      <mat-card-subtitle><b>{{getSchoolTypeName(post.school)}} | {{getMaterialTypeName(post.materialType)}}</b>
-        <i style="float: right;">{{post.userNickname}} | {{getShortDate(post.addDateUtc)}}</i>
-      </mat-card-subtitle>
-      <mat-card-content>
-        <div class="d-flex" >
-          <img *ngIf="post.filePath" class="col-4 overflow-hidden" style="object-fit:scale-down; height: 100%;"
-               [src]="resourceServerPath + post.thumbImagePath">
-          <div class="ml-3 mr-3" style="word-wrap: break-word; white-space: normal!important; overflow: hidden; height: 210px;">{{post.description}}</div>
-        </div>
-      </mat-card-content>
+    <mat-card *ngFor="let post of posts" style="height: 450px;">
+      <div style="cursor:pointer">
+        <mat-card-title (click)="goToDetails(post)">{{post.title}}</mat-card-title>
+        <mat-card-subtitle (click)="goToDetails(post)">
+          <b>{{getSchoolTypeName(post.school)}} | {{getMaterialTypeName(post.materialType)}}</b>
+          <i style="float: right;">{{post.userNickname}} | {{getShortDate(post.addDateUtc)}}</i>
+        </mat-card-subtitle>
+        <mat-card-content (click)="goToDetails(post)">
+          <div class="d-flex">
+            <img *ngIf="post.filePath" class="col-4 overflow-hidden" style="object-fit:scale-down; height: 100%;" [src]="resourceServerPath + post.thumbImagePath">
+            <div class="ml-3 mr-3" style="word-wrap: break-word; white-space: normal!important; overflow: hidden; height: 210px;">{{post.description}}</div>
+          </div>
+        </mat-card-content>
+      </div>
       <mat-card-actions>
         <hr>
         <div style="display: flex; justify-content: space-between;align-items:center">
           <div>
-            <button mat-button (click)="downloadFile(post.filePath)"><i class="fa-download fa"></i> Pobierz</button>
-            <i *ngIf="post.numberOfDownloads>0">pobrano {{post.numberOfDownloads}}
-              raz<span *ngIf="post.numberOfDownloads>1">y</span></i>
+            <button mat-button (click)="downloadFile(post.filePath)">
+              <i class="fa-download fa"></i> Pobierz</button>
+            <i *ngIf="post.numberOfDownloads>0">pobrano {{post.numberOfDownloads}} raz
+              <span *ngIf="post.numberOfDownloads>1">y</span>
+            </i>
           </div>
           <div style="font-weight: bold; font-size: large">
-            <button mat-icon-button (click)="upvote(post.id)"><i class="fa-plus-square fa"
-                                                                 style="color: rgb(63, 81, 181)"></i></button>
+            <button mat-icon-button (click)="upvote(post.id)">
+              <i class="fa-plus-square fa" style="color: rgb(63, 81, 181)"></i>
+            </button>
             <span>{{post.points}}</span>
-            <button mat-icon-button (click)="downvote(post.id)"><i class="fa-minus-square fa" style="color: red;"></i>
+            <button mat-icon-button (click)="downvote(post.id)">
+              <i class="fa-minus-square fa" style="color: red;"></i>
             </button>
           </div>
         </div>
@@ -36,13 +42,21 @@
   </div>
   <div class="col-xl-8 m-3">
     <div class="float-right " style="background-color: #fff">
-      <button (click)="getFirstPage()" *ngIf="currentPage>2" mat-icon-button><i class="fa fa-angle-double-left"></i>
+      <button (click)="getFirstPage()" *ngIf="currentPage>2" mat-icon-button>
+        <i class="fa fa-angle-double-left"></i>
       </button>
-      <button (click)="getPreviousPage()" mat-icon-button><i class="fa fa-angle-left"></i></button>
-      <button mat-icon-button disabled><b>{{currentPage}}</b></button>
-      <button (click)="getNextPage()" mat-icon-button><i class="fa fa-angle-right"></i></button>
-      <button (click)="getLastPage()" *ngIf="currentPage<=numberOfPages-2" mat-icon-button><i
-        class="fa fa-angle-double-right"></i></button>
+      <button (click)="getPreviousPage()" mat-icon-button>
+        <i class="fa fa-angle-left"></i>
+      </button>
+      <button mat-icon-button disabled>
+        <b>{{currentPage}}</b>
+      </button>
+      <button (click)="getNextPage()" mat-icon-button>
+        <i class="fa fa-angle-right"></i>
+      </button>
+      <button (click)="getLastPage()" *ngIf="currentPage<=numberOfPages-2" mat-icon-button>
+        <i class="fa fa-angle-double-right"></i>
+      </button>
     </div>
   </div>
 </div>

@@ -1,10 +1,11 @@
-import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
-import {SchoolType} from '../../models/school-types.enum';
-import {MaterialType} from '../../models/material-type.enum';
-import {Post} from '../../models/post';
-import {PostService} from '../../services/post.service';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { SchoolType } from '../../models/school-types.enum';
+import { MaterialType } from '../../models/material-type.enum';
+import { Post } from '../../models/post';
+import { PostService } from '../../services/post.service';
 import { enviroment } from '../../enviroment';
+import { SessionService } from '../../services/session.service';
 
 @Component({
   selector: 'app-search-results',
@@ -26,7 +27,8 @@ export class SearchResultsComponent implements OnInit {
   resourceServerPath: string;
 
 
-  constructor(private route: ActivatedRoute, private postService: PostService, private router: Router) {
+  constructor(private route: ActivatedRoute, private postService: PostService, private router: Router,
+    private sessionService: SessionService) {
     this.resourceServerPath = enviroment.apiUrl;
   }
 
@@ -95,6 +97,7 @@ export class SearchResultsComponent implements OnInit {
   }
 
   goToDetails(post: Post) {
+    this.sessionService.lastSelectedPost = post;
     this.router.navigate([`post/${post.id}`]);
   }
 }

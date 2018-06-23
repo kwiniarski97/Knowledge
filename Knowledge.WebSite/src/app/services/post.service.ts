@@ -2,7 +2,6 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpClientJsonpModule} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 import {AddRequest} from '../models/requests/addRequest';
-import {PostDetails} from '../models/post-details';
 import { enviroment } from '../enviroment';
 import { HttpClientJwtModule } from '../modules/http-client-jwt/http-client-jwt.module';
 

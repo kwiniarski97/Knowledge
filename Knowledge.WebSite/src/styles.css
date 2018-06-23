@@ -18,6 +18,14 @@
   font-weight: lighter;
 }
 
+.box{
+  background-color: white;
+}
+
+.shaded-text{
+  color: #b2b2b2;
+}
+
 
 .div-rounded {
   -webkit-border-radius: inherit;
