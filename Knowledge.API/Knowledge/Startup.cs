@@ -78,7 +78,7 @@
 
             services.AddAuthorization(options => options.AddPolicy(
                 "Active",
-                policy => { policy.RequireClaim("Status", "Active"); }));
+                policy => { policy.RequireClaim("Status", "Activated"); }));
 
             services.AddMvc();
         }

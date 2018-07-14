@@ -39,7 +39,7 @@ export class HttpClientJwtModule {
     if (headers == null) {
       headers = new HttpHeaders();
     }
-    headers.append('Authorization', `Bearer ${this.getJwt()}`);
+    headers = headers.append('Authorization', `Bearer ${this.getJwt()}`);
     return headers;
   }
 
