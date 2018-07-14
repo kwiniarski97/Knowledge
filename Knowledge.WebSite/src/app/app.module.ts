@@ -37,6 +37,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { PostDetailsComponent } from './components/search-results/post-details/post-details.component';
 import { SchoolnamePipe } from './pipes/schoolname.pipe';
 import { DisqusModule } from 'ngx-disqus';
+import { UserSessionService } from './services/user-session.service';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -101,7 +102,8 @@ export function HttpLoaderFactory(http: HttpClient) {
   providers: [
     { provide: LOCALE_ID, useValue: 'pl' },
     PostService,
-    AuthService
+    AuthService,
+    UserSessionService
   ],
   bootstrap: [AppComponent],
   entryComponents: [SearchDialogComponent, LoginDialogComponent]

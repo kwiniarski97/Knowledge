@@ -1,42 +1,46 @@
 <div class="row col-12">
-  <div class="col-12 top-menu primary-background top-menu-shadow top-menu-stick d-inline-flex"
-       style="align-items:center !important; justify-content: space-between">
+  <div class="col-12 top-menu primary-background top-menu-shadow top-menu-stick d-inline-flex" style="align-items:center !important; justify-content: space-between">
     <div id=buttons class="ml-3">
       <img src="assets/img/logo.png" width="65px" alt="logo" routerLink="" class="menu-entry">
       <div id="desktop-menu" class="d-sm-none d-md-inline d-none">
-        <button *ngFor="let route of routes" mat-button [routerLink]="route.path" class="menu-entry ml-3 mr-3">
-          {{route.name}}
-        </button>
-        <button mat-button (click)="openLoginBox()" class="menu-entry ml-3 mr-3">Zaloguj się</button>
+        <div *ngIf="userSession.isLogged" class="d-sm-none d-md-inline d-none">
+          <button *ngFor="let route of routes" mat-button [routerLink]="route.path" class="menu-entry ml-3 mr-3">
+            {{route.name}}
+          </button>
+        </div>
+
       </div>
     </div>
 
+    <!-- mobile menu start -->
     <div id="mobile-menu-button" class="float-right d-md-none d-sm-flex-inline d-flex-inline">
       <img style="height: 35px;" class="mr-3" src="assets/img/mobile-menu.png" (click)="showMobileMenu()">
     </div>
 
     <div *ngIf="isMobileMenuShown" class="primary-background mobile-menu-container d-md-none d-sm-flex">
-      <div *ngFor="let route of routes" class="mobile-menu-entry" (click)="hideMobileMenu()" [routerLink]="route.path">
-        {{route.name}}
-      </div>
+      <span *ngIf="userSession.isLogged">
+        <div *ngFor="let route of routes" class="mobile-menu-entry" (click)="hideMobileMenu()" [routerLink]="route.path">
+          {{route.name}}
+        </div>
+      </span>
       <div class="mobile-menu-entry" (click)="openSearchBox()">Szukaj</div>
-      <div (click)="openLoginBox()" class="mobile-menu-entry">Zaloguj się</div>
+      <div *ngIf="!userSession.isLogged" (click)="openLoginBox()" class="mobile-menu-entry">Zaloguj się</div>
+      <div *ngIf="userSession.isLogged" (click)="logout()" class="mobile-menu-entry">{{'menu.logout' | translate}}</div>
     </div>
-
-    <div class="d-none d-sm-none d-md-inline mr-1 col-4">
-      <form>
-        <div class="d-xl-inline-flex col-12 flex-fill d-md-none d-none ">
+    <!-- mobile menu end -->
+    <div class="d-none d-sm-none d-md-inline mr-1 col-5">
+      <form class="d-inline-block col-10">
+        <div class="d-xl-inline-flex col-10 flex-fill d-md-none d-none ">
           <input #searchBox class="small-search-box" matInput type="text" placeholder="Szukaj...">
           <button mat-button (click)="search(searchBox.value)" class="search-button">Szukaj</button>
         </div>
       </form>
       <button mat-button (click)="openSearchBox()" class="d-xl-none d-sm-none d-md-inline d-none float-right">Szukaj
       </button>
+      <button *ngIf="!userSession.isLogged" mat-button (click)="openLoginBox()" class="menu-entry">Zaloguj się</button>
+      <button *ngIf="userSession.isLogged" mat-button (click)="logout()" class="menu-entry ">{{'menu.logout' | translate}}</button>
     </div>
-
   </div>
-
   <!--fix to overlapping-->
   <div class="col-12 top-menu primary-background d-block relative" style="height: 62px"></div>
 </div>
-

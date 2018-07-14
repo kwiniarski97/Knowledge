@@ -1,9 +1,10 @@
-import {Component, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
-import {MatDialogRef} from '@angular/material';
-import {AuthService} from '../../../services/auth.service';
-import {LoginDto} from '../../../models/requests/loginDto';
-import {RegisterDto} from '../../../models/requests/registerDto';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { MatDialogRef } from '@angular/material';
+import { AuthService } from '../../../services/auth.service';
+import { LoginDto } from '../../../models/requests/loginDto';
+import { RegisterDto } from '../../../models/requests/registerDto';
+import { UserSessionService } from '../../../services/user-session.service';
 
 @Component({
   selector: 'app-login-dialog',
@@ -17,7 +18,7 @@ export class LoginDialogComponent implements OnInit {
   agreedToRules: boolean;
 
   constructor(private router: Router, public dialogRef: MatDialogRef<LoginDialogComponent>,
-              private authService: AuthService) {
+    private authService: AuthService, private userSession: UserSessionService) {
     router.events.subscribe(event => {
       if (event) {
         dialogRef.close();
@@ -30,9 +31,9 @@ export class LoginDialogComponent implements OnInit {
 
   login() {
     this.authService.login(this.loginDto).subscribe(ok => {
-        localStorage.setItem('jwt', ok);
-        this.dialogRef.close();
-      },
+      this.userSession.userLogin(this.loginDto.nickname, ok);
+      this.dialogRef.close();
+    },
       err => {
         alert(err);
       });
