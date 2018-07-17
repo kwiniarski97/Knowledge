@@ -1,9 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, LOCALE_ID } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import {  registerLocaleData } from '@angular/common';
+import { registerLocaleData } from '@angular/common';
 import localePl from '@angular/common/locales/pl';
-
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
@@ -12,12 +11,15 @@ import { AddComponent } from './components/add/add.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
-  MatButtonModule, MatCardModule, MatCheckboxModule,
+  MatButtonModule,
+  MatCardModule,
+  MatCheckboxModule,
   MatDialogModule,
   MatIconModule,
   MatInputModule,
   MatMenuModule,
-  MatSelectModule, MatTabsModule,
+  MatSelectModule,
+  MatTabsModule,
   MatToolbarModule
 } from '@angular/material';
 import { SearchResultsComponent } from './components/search-results/search-results.component';
@@ -38,11 +40,12 @@ import { PostDetailsComponent } from './components/search-results/post-details/p
 import { SchoolnamePipe } from './pipes/schoolname.pipe';
 import { DisqusModule } from 'ngx-disqus';
 import { UserSessionService } from './services/user-session.service';
+import { GrowlComponent } from './components/growl/growl.component';
+import { GrowlModule } from '../../node_modules/primeng/components/growl/growl';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
-
 
 @NgModule({
   declarations: [
@@ -62,6 +65,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     FooterComponent,
     PostDetailsComponent,
     LoginDialogComponent,
+    GrowlComponent
   ],
   imports: [
     BrowserModule,
@@ -75,6 +79,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     CovalentLayoutModule,
     CovalentStepsModule,
     CovalentFileModule,
+    GrowlModule,
     MatIconModule,
     MatCheckboxModule,
     MatMenuModule,
@@ -96,20 +101,14 @@ export function HttpLoaderFactory(http: HttpClient) {
       { path: 'add', component: AddComponent },
       { path: 'search/:page/:query', component: SearchResultsComponent },
       { path: 'post/:id', component: PostDetailsComponent },
-      { path: '**', component: NotFoundComponent },
+      { path: '**', component: NotFoundComponent }
     ])
   ],
-  providers: [
-    { provide: LOCALE_ID, useValue: 'pl' },
-    PostService,
-    AuthService,
-    UserSessionService
-  ],
+  providers: [{ provide: LOCALE_ID, useValue: 'pl' }, PostService, AuthService, UserSessionService],
   bootstrap: [AppComponent],
   entryComponents: [SearchDialogComponent, LoginDialogComponent]
 })
 export class AppModule {
-
   constructor(private translateService: TranslateService) {
     registerLocaleData(localePl, 'pl');
     translateService.setDefaultLang('pl');

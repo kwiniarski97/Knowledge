@@ -1,5 +1,6 @@
 ﻿namespace Knowledge.Controllers
 {
+    using System;
     using System.Threading.Tasks;
 
     using Knowledge.Models.Domain;
@@ -23,15 +24,32 @@
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginDto login)
         {
-            var jwt = await this.authService.Login(login);
-            return this.Ok(jwt);
+            try
+            {
+                var jwt = await this.authService.Login(login);
+                return this.Ok(jwt);
+            }
+            catch (Exception ex)
+            {
+                return this.BadRequest(ex.Message);
+            }
+
         }
 
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegisterDto register)
         {
-            await this.authService.Register(register);
-            return this.Ok();
+            try
+            {
+                await this.authService.Register(register);
+                return this.BadRequest();
+            }
+            catch (Exception ex)
+            {
+                return this.Ok();
+            }
+
+
         }
     }
 }

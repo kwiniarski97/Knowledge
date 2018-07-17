@@ -4,6 +4,7 @@ import {SchoolType} from '../../models/school-types.enum';
 import {PostService} from '../../services/post.service';
 import {AddRequest} from '../../models/requests/addRequest';
 import {Router} from '@angular/router';
+import { GrowlService } from '../growl/growl.service';
 
 @Component({
   selector: 'app-add',
@@ -18,7 +19,7 @@ export class AddComponent implements OnInit {
   file: File;
   isEncodingEnded = true;
 
-  constructor(private postService: PostService, private router: Router) {
+  constructor(private postService: PostService, private router: Router, private growlService: GrowlService) {
   }
 
   ngOnInit() {
@@ -26,12 +27,12 @@ export class AddComponent implements OnInit {
 
   send(): void {
     this.postService.add(this.model).subscribe(ok => {
-        alert('Pomyślnie dodano plik');
+        this.growlService.success('Pomyślnie dodano plik');
         this.clearFiles();
         this.router.navigate(['/']);
       },
       error => {
-        alert('Wystąpił błąd');
+        this.growlService.error('Wystąpił błąd', 'Nie udało się dodać pliku. Spróbuj później.');
       });
   }
 
